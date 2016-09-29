@@ -303,7 +303,7 @@
   // Prusa i3g
   #define  DEFAULT_Kp 10
   #define  DEFAULT_Ki 3
-  #define  DEFAULT_Kd 400
+  #define  DEFAULT_Kd 240
 
 #endif // PIDTEMP
 
@@ -496,9 +496,9 @@
 // Speed for the first approach when double-probing (with PROBE_DOUBLE_TOUCH)
 #define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
 // Speed for the "accurate" probe of each point
-#define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
+#define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 4)
 // Use double touch for probing
-//#define PROBE_DOUBLE_TOUCH
+#define PROBE_DOUBLE_TOUCH
 
 //
 // Allen Key Probe is defined in the Delta example configurations.
@@ -560,8 +560,8 @@
 //
 // For M851 give a range for adjusting the Z probe offset
 //
-#define Z_PROBE_OFFSET_RANGE_MIN -20
-#define Z_PROBE_OFFSET_RANGE_MAX -0.5
+#define Z_PROBE_OFFSET_RANGE_MIN -2
+#define Z_PROBE_OFFSET_RANGE_MAX -0.2
 
 // For Inverting Stepper Enable Pins (Active Low) use 0, Non Inverting (Active High) use 1
 // :{0:'Low',1:'High'}
@@ -588,7 +588,7 @@
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
 #define INVERT_X_DIR false
 #define INVERT_Y_DIR true
-#define INVERT_Z_DIR true
+#define INVERT_Z_DIR false
 
 // @section extruder
 
@@ -620,7 +620,7 @@
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
 #define X_MAX_POS 200
-#define Y_MAX_POS 200
+#define Y_MAX_POS 180
 #define Z_MAX_POS 210
 
 //===========================================================================
@@ -640,10 +640,10 @@
 //============================ Mesh Bed Leveling ============================
 //===========================================================================
 
-//#define MESH_BED_LEVELING    // Enable mesh bed leveling.
+// #define MESH_BED_LEVELING    // Enable mesh bed leveling.
 
 #if ENABLED(MESH_BED_LEVELING)
-  #define MESH_INSET 10        // Mesh inset margin on print area
+  #define MESH_INSET 40        // Mesh inset margin on print area
   #define MESH_NUM_X_POINTS 3  // Don't use more than 7 points per axis, implementation limited.
   #define MESH_NUM_Y_POINTS 3
   #define MESH_HOME_SEARCH_Z 4  // Z after Home, bed somewhere below but above 0.0.
@@ -686,36 +686,38 @@
 
   // Enable this to sample the bed in a grid (least squares solution).
   // Note: this feature generates 10KB extra code size.
-  //#define AUTO_BED_LEVELING_GRID
+  // #define AUTO_BED_LEVELING_GRID
 
   #if ENABLED(AUTO_BED_LEVELING_GRID)
 
-    #define LEFT_PROBE_BED_POSITION 15
-    #define RIGHT_PROBE_BED_POSITION 170
-    #define FRONT_PROBE_BED_POSITION 20
-    #define BACK_PROBE_BED_POSITION 170
+    #define LEFT_PROBE_BED_POSITION 40
+    #define RIGHT_PROBE_BED_POSITION 160
+    #define FRONT_PROBE_BED_POSITION 40
+    #define BACK_PROBE_BED_POSITION 160
 
     #define MIN_PROBE_EDGE 10 // The Z probe minimum square sides can be no smaller than this.
 
     // Set the number of grid points per dimension.
     // You probably don't need more than 3 (squared=9).
-    #define AUTO_BED_LEVELING_GRID_POINTS 2
+    #define AUTO_BED_LEVELING_GRID_POINTS 3
 
   #else  // !AUTO_BED_LEVELING_GRID
 
     // Arbitrary points to probe.
     // A simple cross-product is used to estimate the plane of the bed.
-      #define ABL_PROBE_PT_1_X 45
-      #define ABL_PROBE_PT_1_Y 160
+      #define ABL_PROBE_PT_1_X 50
+      #define ABL_PROBE_PT_1_Y 150
+
       #define ABL_PROBE_PT_2_X 160
       #define ABL_PROBE_PT_2_Y 100
-      #define ABL_PROBE_PT_3_X 45
-      #define ABL_PROBE_PT_3_Y 30
+
+      #define ABL_PROBE_PT_3_X 50
+      #define ABL_PROBE_PT_3_Y 50
 
   #endif // !AUTO_BED_LEVELING_GRID
 
-  //#define Z_PROBE_END_SCRIPT "G1 Z10 F12000\nG1 X15 Y330\nG1 Z0.5\nG1 Z10" // These commands will be executed in the end of G29 routine.
-                                                                             // Useful to retract a deployable Z probe.
+  // #define Z_PROBE_END_SCRIPT "G1 Z10 F2000\n" // These commands will be executed in the end of G29 routine.
+                                              // Useful to retract a deployable Z probe.
 
   // If you've enabled AUTO_BED_LEVELING_FEATURE and are using the Z Probe for Z Homing,
   // it is highly recommended you also enable Z_SAFE_HOMING below!
@@ -742,7 +744,7 @@
 // - If stepper drivers time out, it will need X and Y homing again before Z homing.
 // - Move the Z probe (or nozzle) to a defined XY point before Z Homing when homing all axes (G28).
 // - Prevent Z homing when the Z probe is outside bed area.
-//#define Z_SAFE_HOMING
+#define Z_SAFE_HOMING
 
 #if ENABLED(Z_SAFE_HOMING)
   #define Z_SAFE_HOMING_X_POINT ((X_MIN_POS + X_MAX_POS) / 2)    // X point for Z homing when homing all axis (G28).
@@ -751,7 +753,7 @@
 
 // Homing speeds (mm/m)
 #define HOMING_FEEDRATE_XY (3000)
-#define HOMING_FEEDRATE_Z  (710)
+#define HOMING_FEEDRATE_Z  (400*1.314777) // @#$! resonance. machine needs dampening.
 
 //
 // MOVEMENT SETTINGS
@@ -762,15 +764,15 @@
 
 #define DEFAULT_AXIS_STEPS_PER_UNIT   {80.5, 80.5, 393.0, 97.0}  // default steps per unit for Ultimaker
 #define DEFAULT_MAX_FEEDRATE          {200, 200, 60, 80}    // (mm/sec)
-#define DEFAULT_MAX_ACCELERATION      {3000,3000,500,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
+#define DEFAULT_MAX_ACCELERATION      {2000,2000,500,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
 
-#define DEFAULT_ACCELERATION            900   // X, Y, Z and E acceleration in mm/s^2 for printing moves
+#define DEFAULT_ACCELERATION           1000    // X, Y, Z and E acceleration in mm/s^2 for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  10000    // E acceleration in mm/s^2 for retracts
-#define DEFAULT_TRAVEL_ACCELERATION    3000    // X, Y, Z acceleration in mm/s^2 for travel (non printing) moves
+#define DEFAULT_TRAVEL_ACCELERATION    1000    // X, Y, Z acceleration in mm/s^2 for travel (non printing) moves
 
 // The speed change that does not require acceleration (i.e. the software might assume it can be done instantaneously)
-#define DEFAULT_XYJERK               80.0    // (mm/sec)
-#define DEFAULT_ZJERK                 5.0     // (mm/sec)
+#define DEFAULT_XYJERK               20.0    // (mm/sec)
+#define DEFAULT_ZJERK                 0.4    // (mm/sec)
 #define DEFAULT_EJERK                 5.0    // (mm/sec)
 
 
@@ -1017,7 +1019,7 @@
 // This option overrides the default number of encoder pulses needed to
 // produce one step. Should be increased for high-resolution encoders.
 //
-#define ENCODER_PULSES_PER_STEP 2
+#define ENCODER_PULSES_PER_STEP 4
 
 //
 // Use this option to override the number of step signals required to
