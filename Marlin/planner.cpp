@@ -953,7 +953,12 @@ void Planner::check_axes_activity() {
   }
   else {
     // Limit acceleration per axis
-    block->acceleration_steps_per_s2 = ceil((block->steps[E_AXIS] ? acceleration : travel_acceleration) * steps_per_mm);
+    block->acceleration_steps_per_s2 = ceil(
+        ( block->steps[E_AXIS] 
+          || (block->steps[Z_AXIS] && max_acceleration_mm_per_s2[Z_AXIS] < travel_acceleration
+        ) ? acceleration : travel_acceleration) 
+        * steps_per_mm);
+
     if (max_acceleration_steps_per_s2[X_AXIS] < (block->acceleration_steps_per_s2 * block->steps[X_AXIS]) / block->step_event_count)
       block->acceleration_steps_per_s2 = (max_acceleration_steps_per_s2[X_AXIS] * block->step_event_count) / block->steps[X_AXIS];
     if (max_acceleration_steps_per_s2[Y_AXIS] < (block->acceleration_steps_per_s2 * block->steps[Y_AXIS]) / block->step_event_count)
