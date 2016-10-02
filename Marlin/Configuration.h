@@ -434,7 +434,7 @@
 #define X_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Y_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Z_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
-#define Z_MIN_PROBE_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+#define Z_MIN_PROBE_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 
 #define X_MAX_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
@@ -555,14 +555,14 @@
 //
 // Probe Raise options provide clearance for the probe to deploy, stow, and travel.
 //
-#define Z_PROBE_DEPLOY_HEIGHT 4 // Raise to make room for the probe to deploy / stow
+#define Z_PROBE_DEPLOY_HEIGHT 2 // Raise to make room for the probe to deploy / stow
 #define Z_PROBE_TRAVEL_HEIGHT 2  // Raise between probing points.
 
 //
 // For M851 give a range for adjusting the Z probe offset
 //
 #define Z_PROBE_OFFSET_RANGE_MIN -2
-#define Z_PROBE_OFFSET_RANGE_MAX -0.2
+#define Z_PROBE_OFFSET_RANGE_MAX -0.05
 
 // For Inverting Stepper Enable Pins (Active Low) use 0, Non Inverting (Active High) use 1
 // :{0:'Low',1:'High'}
@@ -641,7 +641,7 @@
 //============================ Mesh Bed Leveling ============================
 //===========================================================================
 
-// #define MESH_BED_LEVELING    // Enable mesh bed leveling.
+#define MESH_BED_LEVELING    // Enable mesh bed leveling.
 
 #if ENABLED(MESH_BED_LEVELING)
   #define MESH_INSET 40        // Mesh inset margin on print area
@@ -665,12 +665,12 @@
 
 // @section bedlevel
 
-#define AUTO_BED_LEVELING_FEATURE // Delete the comment to enable (remove // at the start of the line)
+// #define AUTO_BED_LEVELING_FEATURE // Delete the comment to enable (remove // at the start of the line)
 
 // Enable this feature to get detailed logging of G28, G29, M48, etc.
 // Logging is off by default. Enable this logging feature with 'M111 S32'.
 // NOTE: Requires a huge amount of PROGMEM.
-//#define DEBUG_LEVELING_FEATURE
+// #define DEBUG_LEVELING_FEATURE
 
 #if ENABLED(AUTO_BED_LEVELING_FEATURE)
 
