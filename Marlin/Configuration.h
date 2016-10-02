@@ -641,7 +641,7 @@
 //============================ Mesh Bed Leveling ============================
 //===========================================================================
 
-#define MESH_BED_LEVELING    // Enable mesh bed leveling.
+// #define MESH_BED_LEVELING    // Enable mesh bed leveling.
 
 #if ENABLED(MESH_BED_LEVELING)
   #define MESH_INSET 40        // Mesh inset margin on print area
@@ -665,7 +665,7 @@
 
 // @section bedlevel
 
-// #define AUTO_BED_LEVELING_FEATURE // Delete the comment to enable (remove // at the start of the line)
+#define AUTO_BED_LEVELING_FEATURE // Delete the comment to enable (remove // at the start of the line)
 
 // Enable this feature to get detailed logging of G28, G29, M48, etc.
 // Logging is off by default. Enable this logging feature with 'M111 S32'.
@@ -687,7 +687,7 @@
 
   // Enable this to sample the bed in a grid (least squares solution).
   // Note: this feature generates 10KB extra code size.
-  // #define AUTO_BED_LEVELING_GRID
+  #define AUTO_BED_LEVELING_GRID
 
   #if ENABLED(AUTO_BED_LEVELING_GRID)
 
@@ -763,17 +763,17 @@
 
 // default settings
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {80.5, 80.5, 393.0, 97.0}  // default steps per unit for Ultimaker
-#define DEFAULT_MAX_FEEDRATE          {200, 200, 40, 80}    // (mm/sec)
-#define DEFAULT_MAX_ACCELERATION      {3000,3000,200,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {80.5, 80.5, 400.0, 97.0}  // default steps per unit for Ultimaker
+#define DEFAULT_MAX_FEEDRATE          {300, 300, 60, 80}    // (mm/sec)
+#define DEFAULT_MAX_ACCELERATION      {2000,2000,200,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
 
 #define DEFAULT_ACCELERATION           2000    // X, Y, Z and E acceleration in mm/s^2 for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  10000    // E acceleration in mm/s^2 for retracts
+#define DEFAULT_RETRACT_ACCELERATION   3000    // E acceleration in mm/s^2 for retracts
 #define DEFAULT_TRAVEL_ACCELERATION    2000    // X, Y, Z acceleration in mm/s^2 for travel (non printing) moves
 
 // The speed change that does not require acceleration (i.e. the software might assume it can be done instantaneously)
 #define DEFAULT_XYJERK               15.0    // (mm/sec)
-#define DEFAULT_ZJERK                 4.0    // (mm/sec)
+#define DEFAULT_ZJERK                 0.2    // (mm/sec)
 #define DEFAULT_EJERK                 5.0    // (mm/sec)
 
 
