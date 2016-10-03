@@ -556,7 +556,7 @@
 // Probe Raise options provide clearance for the probe to deploy, stow, and travel.
 //
 #define Z_PROBE_DEPLOY_HEIGHT 2 // Raise to make room for the probe to deploy / stow
-#define Z_PROBE_TRAVEL_HEIGHT 2  // Raise between probing points.
+#define Z_PROBE_TRAVEL_HEIGHT 4  // Raise between probing points.
 
 //
 // For M851 give a range for adjusting the Z probe offset
@@ -617,12 +617,12 @@
 // @section machine
 
 // Travel limits after homing (units are in mm)
-#define X_MIN_POS 0
+#define X_MIN_POS -22
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
-#define X_MAX_POS 200
+#define X_MAX_POS 180 // TENP: for inductive Z-probe on nearest accesible edge of glass with foil tape border! :-P
 #define Y_MAX_POS 180
-#define Z_MAX_POS 210
+#define Z_MAX_POS 200
 
 //===========================================================================
 //========================= Filament Runout Sensor ==========================
@@ -687,7 +687,7 @@
 
   // Enable this to sample the bed in a grid (least squares solution).
   // Note: this feature generates 10KB extra code size.
-  #define AUTO_BED_LEVELING_GRID
+  // #define AUTO_BED_LEVELING_GRID
 
   #if ENABLED(AUTO_BED_LEVELING_GRID)
 
@@ -706,19 +706,19 @@
 
     // Arbitrary points to probe.
     // A simple cross-product is used to estimate the plane of the bed.
-      #define ABL_PROBE_PT_1_X 50
-      #define ABL_PROBE_PT_1_Y 150
+      #define ABL_PROBE_PT_1_X 20
+      #define ABL_PROBE_PT_1_Y (Y_MAX_POS-20)
 
-      #define ABL_PROBE_PT_2_X 160
-      #define ABL_PROBE_PT_2_Y 100
+      #define ABL_PROBE_PT_2_X (X_MAX_POS-20)
+      #define ABL_PROBE_PT_2_Y (Y_MAX_POS/2)
 
-      #define ABL_PROBE_PT_3_X 50
-      #define ABL_PROBE_PT_3_Y 50
+      #define ABL_PROBE_PT_3_X 20
+      #define ABL_PROBE_PT_3_Y 20
 
   #endif // !AUTO_BED_LEVELING_GRID
 
-  // #define Z_PROBE_END_SCRIPT "G1 Z10 F2000\n" // These commands will be executed in the end of G29 routine.
-                                              // Useful to retract a deployable Z probe.
+  #define Z_PROBE_END_SCRIPT "G1 X0 Y0 Z10 F2000" // These commands (use \n to separate) will be executed in the end of G29 routine.
+                                                    // Useful to retract a deployable Z probe.
 
   // If you've enabled AUTO_BED_LEVELING_FEATURE and are using the Z Probe for Z Homing,
   // it is highly recommended you also enable Z_SAFE_HOMING below!
@@ -733,8 +733,8 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-//#define MANUAL_X_HOME_POS 0
-//#define MANUAL_Y_HOME_POS 0
+#define MANUAL_X_HOME_POS -20
+#define MANUAL_Y_HOME_POS -8
 //#define MANUAL_Z_HOME_POS 0 // Distance between the nozzle to printbed after homing
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
@@ -748,8 +748,10 @@
 #define Z_SAFE_HOMING
 
 #if ENABLED(Z_SAFE_HOMING)
-  #define Z_SAFE_HOMING_X_POINT ((X_MIN_POS + X_MAX_POS) / 2)    // X point for Z homing when homing all axis (G28).
-  #define Z_SAFE_HOMING_Y_POINT ((Y_MIN_POS + Y_MAX_POS) / 2)    // Y point for Z homing when homing all axis (G28).
+//  #define Z_SAFE_HOMING_X_POINT ((X_MIN_POS + X_MAX_POS) / 2)    // X point for Z homing when homing all axis (G28).
+//  #define Z_SAFE_HOMING_Y_POINT ((Y_MIN_POS + Y_MAX_POS) / 2)    // Y point for Z homing when homing all axis (G28).
+  #define Z_SAFE_HOMING_X_POINT (X_MAX_POS / 2)
+  #define Z_SAFE_HOMING_Y_POINT (Y_MAX_POS / 2)
 #endif
 
 // Homing speeds (mm/m)
@@ -763,16 +765,16 @@
 
 // default settings
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {80.5, 80.5, 400.0, 97.0}  // default steps per unit for Ultimaker
-#define DEFAULT_MAX_FEEDRATE          {300, 300, 60, 80}    // (mm/sec)
-#define DEFAULT_MAX_ACCELERATION      {2000,2000,200,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {  80.5,  80.5, 400.0,  97.0  } // default steps per unit
+#define DEFAULT_MAX_FEEDRATE          {   500,   500,    60,    80  } // (mm/sec)
+#define DEFAULT_MAX_ACCELERATION      {  3000,  3000,   200, 10000  } // X, Y, Z, E maximum start speed for accelerated moves.
 
-#define DEFAULT_ACCELERATION           2000    // X, Y, Z and E acceleration in mm/s^2 for printing moves
+#define DEFAULT_ACCELERATION           2500    // X, Y, Z and E acceleration in mm/s^2 for printing moves
 #define DEFAULT_RETRACT_ACCELERATION   3000    // E acceleration in mm/s^2 for retracts
 #define DEFAULT_TRAVEL_ACCELERATION    2000    // X, Y, Z acceleration in mm/s^2 for travel (non printing) moves
 
 // The speed change that does not require acceleration (i.e. the software might assume it can be done instantaneously)
-#define DEFAULT_XYJERK               15.0    // (mm/sec)
+#define DEFAULT_XYJERK               20.0    // (mm/sec)
 #define DEFAULT_ZJERK                 0.2    // (mm/sec)
 #define DEFAULT_EJERK                 5.0    // (mm/sec)
 

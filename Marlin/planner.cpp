@@ -956,6 +956,7 @@ void Planner::check_axes_activity() {
     block->acceleration_steps_per_s2 = ceil((block->steps[E_AXIS] ? acceleration : travel_acceleration) * steps_per_mm);
 
     // XXX DEBUG (G)
+    /*
     serial_echopair_P(PSTR("acceleration="), acceleration); SERIAL_EOL;
     serial_echopair_P(PSTR("travel_acceleration="), travel_acceleration); SERIAL_EOL;
     serial_echopair_P(PSTR("steps_per_mm="), steps_per_mm); SERIAL_EOL;
@@ -964,6 +965,7 @@ void Planner::check_axes_activity() {
     serial_echopair_P(PSTR("block->acceleration_steps_per_s2="), block->acceleration_steps_per_s2); SERIAL_EOL;
     serial_echopair_P(PSTR("max_acceleration_mm_per_s2[Z_AXIS]="), max_acceleration_mm_per_s2[Z_AXIS]); SERIAL_EOL;
     serial_echopair_P(PSTR("acceleration_steps_per_s2="), block->acceleration_steps_per_s2); SERIAL_EOL;
+    */
 
     if (max_acceleration_steps_per_s2[X_AXIS] < ((float)block->acceleration_steps_per_s2 * (float)block->steps[X_AXIS] / (float)block->step_event_count) )
         block->acceleration_steps_per_s2 = max_acceleration_steps_per_s2[X_AXIS];
@@ -977,8 +979,8 @@ void Planner::check_axes_activity() {
   }
   block->acceleration = block->acceleration_steps_per_s2 / steps_per_mm;
   
-  // XXX
-  serial_echopair_P(PSTR("FINAL block->acceleration="), block->acceleration); SERIAL_EOL;
+  // XXX DEBUG
+  // serial_echopair_P(PSTR("FINAL block->acceleration="), block->acceleration); SERIAL_EOL;
 
   block->acceleration_rate = (long)(block->acceleration_steps_per_s2 * (16777216.0 / (F_CPU / 8)));
 
