@@ -491,7 +491,7 @@
 //  (0,0)
 #define X_PROBE_OFFSET_FROM_EXTRUDER 21  // X offset: -left  +right  [of the nozzle]
 #define Y_PROBE_OFFSET_FROM_EXTRUDER 18  // Y offset: -front +behind [the nozzle]
-#define Z_PROBE_OFFSET_FROM_EXTRUDER -0.15   // Z offset: -below +above  [the nozzle]
+#define Z_PROBE_OFFSET_FROM_EXTRUDER -0.90   // Z offset: -below +above  [the nozzle]
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 8000
@@ -618,12 +618,12 @@
 // @section machine
 
 // Travel limits after homing (units are in mm)
-#define X_MIN_POS -22
-#define Y_MIN_POS 0
+#define X_MIN_POS -24
+#define Y_MIN_POS -10
 #define Z_MIN_POS 0
-#define X_MAX_POS 180 // TENP: for inductive Z-probe on nearest accesible edge of glass with foil tape border! :-P
-#define Y_MAX_POS 180
-#define Z_MAX_POS 200
+#define X_MAX_POS 200
+#define Y_MAX_POS 190
+#define Z_MAX_POS 205 // to allow for X-axis gantry Z levelling
 
 //===========================================================================
 //========================= Filament Runout Sensor ==========================
@@ -734,8 +734,8 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-#define MANUAL_X_HOME_POS -20
-#define MANUAL_Y_HOME_POS -8
+#define MANUAL_X_HOME_POS -24
+#define MANUAL_Y_HOME_POS -10
 //#define MANUAL_Z_HOME_POS 0 // Distance between the nozzle to printbed after homing
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
@@ -768,16 +768,16 @@
 
 #define DEFAULT_AXIS_STEPS_PER_UNIT   {  80.5,  80.5, 400.0,  97.0  } // default steps per unit
 #define DEFAULT_MAX_FEEDRATE          {   500,   500,    60,    80  } // (mm/sec)
-#define DEFAULT_MAX_ACCELERATION      {  3000,  3000,   200, 10000  } // X, Y, Z, E maximum start speed for accelerated moves.
+#define DEFAULT_MAX_ACCELERATION      {  9000,  9000,   200, 10000  } // X, Y, Z, E maximum start speed for accelerated moves.
 
 #define DEFAULT_ACCELERATION           2500    // X, Y, Z and E acceleration in mm/s^2 for printing moves
 #define DEFAULT_RETRACT_ACCELERATION   3000    // E acceleration in mm/s^2 for retracts
-#define DEFAULT_TRAVEL_ACCELERATION    2000    // X, Y, Z acceleration in mm/s^2 for travel (non printing) moves
+#define DEFAULT_TRAVEL_ACCELERATION    2500    // X, Y, Z acceleration in mm/s^2 for travel (non printing) moves
 
 // The speed change that does not require acceleration (i.e. the software might assume it can be done instantaneously)
-#define DEFAULT_XYJERK               20.0    // (mm/sec)
+#define DEFAULT_XYJERK               10.0    // (mm/sec)
 #define DEFAULT_ZJERK                 0.2    // (mm/sec)
-#define DEFAULT_EJERK                 5.0    // (mm/sec)
+#define DEFAULT_EJERK                 0.5    // (mm/sec)
 
 
 //=============================================================================
