@@ -301,9 +301,9 @@
   //#define  DEFAULT_Kd 440
 
   // Prusa i3g
-  #define  DEFAULT_Kp 10
-  #define  DEFAULT_Ki 3
-  #define  DEFAULT_Kd 240
+  #define  DEFAULT_Kp 20
+  #define  DEFAULT_Ki 2
+  #define  DEFAULT_Kd 180
 
 #endif // PIDTEMP
 
