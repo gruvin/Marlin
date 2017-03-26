@@ -86,7 +86,7 @@
 // User-specified version info of this build to display in [Pronterface, etc] terminal window during
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
-#define STRING_CONFIG_H_AUTHOR "(none, default config)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(Gruvin, Prusa i3 Testing)" // Who made the changes.
 #define SHOW_BOOTSCREEN
 #define STRING_SPLASH_LINE1 SHORT_BUILD_VERSION // will be shown during bootup in line 1
 #define STRING_SPLASH_LINE2 WEBSITE_URL         // will be shown during bootup in line 2
@@ -301,9 +301,9 @@
   //#define  DEFAULT_Kd 440
 
   // Prusa i3g
-  #define  DEFAULT_Kp 20
-  #define  DEFAULT_Ki 2
-  #define  DEFAULT_Kd 180
+  #define  DEFAULT_Kp 15
+  #define  DEFAULT_Ki 7
+  #define  DEFAULT_Kd 100
 
 #endif // PIDTEMP
 
@@ -328,6 +328,13 @@
 // setting this to anything other than 255 enables a form of PWM to the bed just like HEATER_BED_DUTY_CYCLE_DIVIDER did,
 // so you shouldn't use it unless you are OK with PWM on your bed.  (see the comment on enabling PIDTEMPBED)
 #define MAX_BED_POWER 230 // limits duty cycle to bed; 255=full current
+
+
+///// BOOKMARK /////
+///// BOOKMARK /////
+///// BOOKMARK /////
+///// BOOKMARK /////
+///// BOOKMARK /////
 
 #if ENABLED(PIDTEMPBED)
 

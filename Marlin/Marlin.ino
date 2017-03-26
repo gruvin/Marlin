@@ -1,6 +1,15 @@
 /**
  * Marlin 3D Printer Firmware
  * Copyright (C) 2016 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ **** WARNING **** RC branch!
+ **** WARNING **** RC branch!
+ **** WARNING **** RC branch!
+ **** WARNING **** RC branch!
+ **** WARNING **** RC branch!
+ */
+
+/*
+ * Marlin Firmware
  *
  * Based on Sprinter and grbl.
  * Copyright (C) 2011 Camiel Gubbels / Erik van der Zalm
