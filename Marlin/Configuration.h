@@ -618,10 +618,10 @@
 // @section machine
 
 // Travel limits after homing (units are in mm)
-#define X_MIN_POS -24
-#define Y_MIN_POS -10
+#define X_MIN_POS 0 
+#define Y_MIN_POS 0
 #define Z_MIN_POS 0
-#define X_MAX_POS 200
+#define X_MAX_POS 220
 #define Y_MAX_POS 190
 #define Z_MAX_POS 205 // to allow for X-axis gantry Z levelling
 
@@ -707,14 +707,14 @@
 
     // Arbitrary points to probe.
     // A simple cross-product is used to estimate the plane of the bed.
-      #define ABL_PROBE_PT_1_X 20
-      #define ABL_PROBE_PT_1_Y (Y_MAX_POS-20)
+      #define ABL_PROBE_PT_1_X 25
+      #define ABL_PROBE_PT_1_Y (Y_MAX_POS-25)
 
-      #define ABL_PROBE_PT_2_X (X_MAX_POS-20)
+      #define ABL_PROBE_PT_2_X (X_MAX_POS-25)
       #define ABL_PROBE_PT_2_Y (Y_MAX_POS/2)
 
-      #define ABL_PROBE_PT_3_X 20
-      #define ABL_PROBE_PT_3_Y 20
+      #define ABL_PROBE_PT_3_X 25
+      #define ABL_PROBE_PT_3_Y 25
 
   #endif // !AUTO_BED_LEVELING_GRID
 
@@ -734,8 +734,8 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-#define MANUAL_X_HOME_POS -24
-#define MANUAL_Y_HOME_POS -10
+//#define MANUAL_X_HOME_POS 0
+//#define MANUAL_Y_HOME_POS 0
 //#define MANUAL_Z_HOME_POS 0 // Distance between the nozzle to printbed after homing
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
