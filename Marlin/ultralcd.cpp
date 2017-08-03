@@ -3003,9 +3003,9 @@ void kill_screen(const char* lcd_msg) {
       #define _PID_BASE_MENU_ITEMS(ELABEL, eindex) \
         raw_Ki = unscalePID_i(PID_PARAM(Ki, eindex)); \
         raw_Kd = unscalePID_d(PID_PARAM(Kd, eindex)); \
-        MENU_ITEM_EDIT(float52, MSG_PID_P ELABEL, &PID_PARAM(Kp, eindex), 1, 9990); \
-        MENU_ITEM_EDIT_CALLBACK(float52, MSG_PID_I ELABEL, &raw_Ki, 0.01, 9990, copy_and_scalePID_i_E ## eindex); \
-        MENU_ITEM_EDIT_CALLBACK(float52, MSG_PID_D ELABEL, &raw_Kd, 1, 9990, copy_and_scalePID_d_E ## eindex)
+        MENU_MULTIPLIER_ITEM_EDIT(float52, MSG_PID_P ELABEL, &PID_PARAM(Kp, eindex), 1, 9990); \
+        MENU_MULTIPLIER_ITEM_EDIT_CALLBACK(float52, MSG_PID_I ELABEL, &raw_Ki, 0.01, 9990, copy_and_scalePID_i_E ## eindex); \
+        MENU_MULTIPLIER_ITEM_EDIT_CALLBACK(float52, MSG_PID_D ELABEL, &raw_Kd, 1, 9990, copy_and_scalePID_d_E ## eindex)
 
       #if ENABLED(PID_EXTRUSION_SCALING)
         #define _PID_MENU_ITEMS(ELABEL, eindex) \
