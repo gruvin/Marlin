@@ -117,7 +117,7 @@
 //
 #if ENABLED(ULTRA_LCD)
 
-  #define BEEPER_PIN 18
+  #define BEEPER_PIN -1 // SILENCE!! was 18
 
   #if ENABLED(NEWPANEL)
 
