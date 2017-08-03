@@ -275,7 +275,7 @@
 
     #if ENABLED(REPRAP_DISCOUNT_SMART_CONTROLLER)
 
-      #define BEEPER_PIN        37
+      #define BEEPER_PIN        -1 // SILENCE!! was 37
 
       #define BTN_EN1           31
       #define BTN_EN2           33
