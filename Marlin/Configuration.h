@@ -521,7 +521,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.5, 80.5, 400.0, 97.0 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.5, 80.5, 394.0, 97.0 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -683,7 +683,7 @@
 #define XY_PROBE_SPEED 8000
 
 // Speed for the first approach when double-probing (with PROBE_DOUBLE_TOUCH)
-#define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
+#define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z / 2
 
 // Speed for the "accurate" probe of each point
 #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
@@ -772,8 +772,8 @@
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
 #define X_MAX_POS 210
-#define Y_MAX_POS 180
-#define Z_MAX_POS 175
+#define Y_MAX_POS 190
+#define Z_MAX_POS 205
 
 // If enabled, axes won't move below MIN_POS in response to movement commands.
 #define MIN_SOFTWARE_ENDSTOPS
@@ -985,8 +985,8 @@
 #endif
 
 // Homing speeds (mm/m)
-#define HOMING_FEEDRATE_XY (3000)
-#define HOMING_FEEDRATE_Z  (407) // anti-resonance
+#define HOMING_FEEDRATE_XY 3000
+#define HOMING_FEEDRATE_Z  1100
 
 //=============================================================================
 //============================= Additional Features ===========================
