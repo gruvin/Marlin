@@ -612,7 +612,7 @@
 
 #if ENABLED(ADVANCE)
   #define EXTRUDER_ADVANCE_K .0
-  #define D_FILAMENT 2.85
+  #define D_FILAMENT 1.75
 #endif
 
 /**
@@ -622,10 +622,11 @@
  * K=0 means advance disabled.
  * See Marlin documentation for calibration instructions.
  */
+// BJR: DO NOT USE. It sux. Lots of under extrusion after tight bends, no matter what K factor I set (0.3 to 75.0)
 //#define LIN_ADVANCE
 
 #if ENABLED(LIN_ADVANCE)
-  #define LIN_ADVANCE_K 75
+  #define LIN_ADVANCE_K 30
 
   /**
    * Some Slicers produce Gcode with randomly jumping extrusion widths occasionally.
