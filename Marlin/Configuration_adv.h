@@ -1260,14 +1260,25 @@
   #define USER_GCODE_1 "G90\nG28 Z0\nG1 Z170 F2000\nG1 Z175 F200\nG1 Z10 F2000\nG28 Z0\nG1 Z10"
 */
 
+/* Examples ...
   #define USER_DESC_2 "Preheat for PLA"
   #define USER_GCODE_2 "M140 S" STRINGIFY(PREHEAT_1_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_1_TEMP_HOTEND)
 
   #define USER_DESC_3 "Preheat for ABS"
   #define USER_GCODE_3 "M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nM104 S" STRINGIFY(PREHEAT_2_TEMP_HOTEND)
+*/
 
+  #define USER_DESC_1 "Enc Heater On"
+  #define USER_GCODE_1 "M42 P64 S255"
+
+  #define USER_DESC_2 "Enc Heater Off"
+  #define USER_GCODE_2 "M42 P64 S0"
+
+/*
   #define USER_DESC_5 "Home & Info"
   #define USER_GCODE_5 "G28\nM503"
+*/
+
 #endif
 
 /**

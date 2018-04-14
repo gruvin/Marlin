@@ -116,7 +116,8 @@
 //
 // Temperature Sensors
 //
-#define TEMP_0_PIN         13   // Analog Input
+// #define TEMP_0_PIN         13   // Analog Input (Default thermistor input with pull-up)
+#define TEMP_0_PIN          3   // E3D PT100 thermocouple amplifier
 #define TEMP_1_PIN         15   // Analog Input
 #define TEMP_BED_PIN       14   // Analog Input
 
