@@ -1269,10 +1269,10 @@
 */
 
   #define USER_DESC_1 "Enc Heater On"
-  #define USER_GCODE_1 "M42 P64 S255"
+  #define USER_GCODE_1 "M42 P63 S255"
 
   #define USER_DESC_2 "Enc Heater Off"
-  #define USER_GCODE_2 "M42 P64 S0"
+  #define USER_GCODE_2 "M42 P63 S0"
 
 /*
   #define USER_DESC_5 "Home & Info"
