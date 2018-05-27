@@ -514,7 +514,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.5, 80.5, 400.0, 500.0 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.5, 161.0, 400.0, 500.0 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -731,7 +731,7 @@
 // @section machine
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#define INVERT_X_DIR false
+#define INVERT_X_DIR true
 #define INVERT_Y_DIR false
 #define INVERT_Z_DIR false
 
@@ -766,7 +766,7 @@
 #define Z_MIN_POS 0
 #define X_MAX_POS 210
 #define Y_MAX_POS 180
-#define Z_MAX_POS 175
+#define Z_MAX_POS 205
 
 // If enabled, axes won't move below MIN_POS in response to movement commands.
 #define MIN_SOFTWARE_ENDSTOPS
