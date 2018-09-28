@@ -685,7 +685,7 @@
 #define XY_PROBE_SPEED 6000
 
 // Speed for the first approach when double-probing (with PROBE_DOUBLE_TOUCH)
-#define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z / 3
+#define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z / 4
 
 // Speed for the "accurate" probe of each point
 #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
@@ -957,6 +957,7 @@
  * Useful to retract or move the Z probe out of the way.
  */
 //#define Z_PROBE_END_SCRIPT "G1 Z10 F12000\nG1 X15 Y330\nG1 Z0.5\nG1 Z10"
+#define Z_PROBE_END_SCRIPT "G1 Z10 F200"
 
 
 // @section homing
@@ -990,7 +991,7 @@
 
 // Homing speeds (mm/m)
 #define HOMING_FEEDRATE_XY 3000
-#define HOMING_FEEDRATE_Z  1100
+#define HOMING_FEEDRATE_Z  1000
 
 //=============================================================================
 //============================= Additional Features ===========================
