@@ -337,9 +337,9 @@
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
   // Gruvinator E3D v6 with sock
-  #define  DEFAULT_Kp 13.5
-  #define  DEFAULT_Ki 1.33
-  #define  DEFAULT_Kd 34 
+  #define  DEFAULT_Kp 20
+  #define  DEFAULT_Ki 1.9
+  #define  DEFAULT_Kd 50
 
   // Ultimaker
   //#define  DEFAULT_Kp 22.2
@@ -522,7 +522,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.5, 80.5, 800, 455 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.5, 80.5, 800, 222 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -561,8 +561,8 @@
  */
 #define DEFAULT_XJERK                 20.0
 #define DEFAULT_YJERK                 20.0
-#define DEFAULT_ZJERK                  0.4
-#define DEFAULT_EJERK                  5.0
+#define DEFAULT_ZJERK                  8.0
+#define DEFAULT_EJERK                  0.5
 
 
 //===========================================================================
@@ -680,14 +680,13 @@
 // FLOATS NOT SUPPORTED for X/Y. Rounding to nearest whole numbers
 #define X_PROBE_OFFSET_FROM_EXTRUDER 23  // X offset: -left  +right  [of the nozzle]
 #define Y_PROBE_OFFSET_FROM_EXTRUDER -5  // Y offset: -front +behind [the nozzle]
-// BJR: Z_PROBE_OFFSET' seems to just get ignored for the BLTouch. I use Z-Offset to compensate.
-#define Z_PROBE_OFFSET_FROM_EXTRUDER -2  // Z offset: -below +above  [the nozzle] (non-deployed)
+#define Z_PROBE_OFFSET_FROM_EXTRUDER 0   // Z offset: -below +above  [the nozzle] (non-deployed)
 
 // X and Y axis travel speed (mm/m) between probes
-#define XY_PROBE_SPEED 6000
+#define XY_PROBE_SPEED 4000
 
 // Speed for the first approach when double-probing (with PROBE_DOUBLE_TOUCH)
-#define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z / 4
+#define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z / 8
 
 // Speed for the "accurate" probe of each point
 #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
@@ -709,12 +708,12 @@
  * Example: `M851 Z-5` with a CLEARANCE of 4  =>  9mm from bed to nozzle.
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
-#define Z_CLEARANCE_DEPLOY_PROBE    6 // Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES  3 // Z Clearance between probe points
+#define Z_CLEARANCE_DEPLOY_PROBE    4 // Z Clearance for Deploy/Stow
+#define Z_CLEARANCE_BETWEEN_PROBES  2 // Z Clearance between probe points
 
 // For M851 give a range for adjusting the Z probe offset
-#define Z_PROBE_OFFSET_RANGE_MIN -20
-#define Z_PROBE_OFFSET_RANGE_MAX 20
+#define Z_PROBE_OFFSET_RANGE_MIN -5
+#define Z_PROBE_OFFSET_RANGE_MAX 2
 
 // Enable the M48 repeatability test to test probe accuracy
 #define Z_MIN_PROBE_REPEATABILITY_TEST
