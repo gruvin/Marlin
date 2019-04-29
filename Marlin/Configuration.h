@@ -657,8 +657,8 @@
  * When changing speed and direction, if the difference is less than the
  * value set here, it may happen instantaneously.
  */
-#define DEFAULT_XJERK                 20.0
-#define DEFAULT_YJERK                 20.0
+#define DEFAULT_XJERK                 16.0
+#define DEFAULT_YJERK                 16.0
 #define DEFAULT_ZJERK                  0.3
 #define DEFAULT_EJERK                  0.5
 
@@ -708,7 +708,7 @@
  *
  */
 #define Z_MIN_PROBE_ENDSTOP
-#define Z_MIN_PROBE_PIN Z_MAX_PIN // pins_RAMPS.h has pin 32 instead of 19 (Z_MAX) *shrug*
+#define Z_MIN_PROBE_PIN 19 // Z_MAX_PIN // BJR: pins_RAMPS.h has pin 32 instead of 19 (Z_MAX) *shrug*
 
 /**
  * Probe Type
@@ -742,17 +742,17 @@
  */
 #define BLTOUCH
 #if ENABLED(BLTOUCH)
-  #define BLTOUCH_DELAY 375   // (ms) Enable and increase if needed
+  #define BLTOUCH_DELAY 50   // (ms) Enable and increase if needed
   
   /**
    * BLTouch V3.0 and newer smart series
    * For genuine BLTouch 3.0 sensors. Clones may be confused by 3.0 command angles. YMMV.
    * If the pin trigger is not detected, first try swapping the black and white wires then toggle this.
    */
-  //#define BLTOUCH_V3
+  #define BLTOUCH_V3
   #if ENABLED(BLTOUCH_V3)
-    //#define BLTOUCH_FORCE_5V_MODE
-    //#define BLTOUCH_FORCE_OPEN_DRAIN_MODE
+    #define BLTOUCH_FORCE_5V_MODE
+    #define BLTOUCH_FORCE_OPEN_DRAIN_MODE
   #endif
 #endif
 
@@ -802,7 +802,7 @@
  */
 // FLOATS NOT SUPPORTED for X/Y. Rounding to nearest whole numbers ...
 #define X_PROBE_OFFSET_FROM_EXTRUDER 23  // X offset: -left  +right  [of the nozzle]
-#define Y_PROBE_OFFSET_FROM_EXTRUDER -5  // Y offset: -front +behind [the nozzle]
+#define Y_PROBE_OFFSET_FROM_EXTRUDER -4  // Y offset: -front +behind [the nozzle]
 #define Z_PROBE_OFFSET_FROM_EXTRUDER 0   // Z offset: -below +above  [the nozzle]
 
 // Certain types of probes need to stay away from edges
@@ -812,8 +812,8 @@
 #define XY_PROBE_SPEED 4000
 
 // Feedrate (mm/m) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
-#define Z_PROBE_SPEED_FAST 4
+//#define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
+#define Z_PROBE_SPEED_FAST 240 // mm/min
 
 // Feedrate (mm/m) for the "accurate" probe of each point
 #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
@@ -1033,12 +1033,12 @@
   /**
    * Enable the G26 Mesh Validation Pattern tool.
    */
-  //#define G26_MESH_VALIDATION
+  #define G26_MESH_VALIDATION
   #if ENABLED(G26_MESH_VALIDATION)
     #define MESH_TEST_NOZZLE_SIZE    0.4  // (mm) Diameter of primary nozzle.
     #define MESH_TEST_LAYER_HEIGHT   0.2  // (mm) Default layer height for the G26 Mesh Validation Tool.
-    #define MESH_TEST_HOTEND_TEMP  205.0  // (°C) Default nozzle temperature for the G26 Mesh Validation Tool.
-    #define MESH_TEST_BED_TEMP      60.0  // (°C) Default bed temperature for the G26 Mesh Validation Tool.
+    #define MESH_TEST_HOTEND_TEMP  210.0  // (°C) Default nozzle temperature for the G26 Mesh Validation Tool.
+    #define MESH_TEST_BED_TEMP      70.0  // (°C) Default bed temperature for the G26 Mesh Validation Tool.
   #endif
 
 #endif
@@ -1062,7 +1062,7 @@
 
     // Beyond the probed grid, continue the implied tilt?
     // Default is to maintain the height of the nearest edge.
-    //#define EXTRAPOLATE_BEYOND_GRID
+    #define EXTRAPOLATE_BEYOND_GRID
 
     //
     // Experimental Subdivision of the grid by Catmull-Rom method.
@@ -1145,7 +1145,7 @@
  * Commands to execute at the end of G29 probing.
  * Useful to retract or move the Z probe out of the way.
  */
-//#define Z_PROBE_END_SCRIPT "G1 Z10 F12000\nG1 X15 Y330\nG1 Z0.5\nG1 Z10"
+// #define Z_PROBE_END_SCRIPT "G1 Z30 X0 Y200 F6000\n"
 
 
 // @section homing
@@ -1178,7 +1178,7 @@
 
 // Homing speeds (mm/m)
 #define HOMING_FEEDRATE_XY (50*60)
-#define HOMING_FEEDRATE_Z  (16*60)
+#define HOMING_FEEDRATE_Z  (10*60)
 
 // @section calibrate
 
@@ -1545,7 +1545,7 @@
 //
 //#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 2
 //#define LCD_FEEDBACK_FREQUENCY_HZ 5000
-#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 
+#define LCD_FEEDBACK_FREQUENCY_DURATION_MS 0
 #define LCD_FEEDBACK_FREQUENCY_HZ 0
 
 //=============================================================================
@@ -1608,7 +1608,7 @@
 //
 // Generic 16x2, 16x4, 20x2, or 20x4 character-based LCD.
 //
-#define ULTRA_LCD
+// #define ULTRA_LCD
 
 //=============================================================================
 //======================== LCD / Controller Selection =========================
