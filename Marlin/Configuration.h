@@ -620,7 +620,7 @@
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 500, 500, 34, 17 }
+#define DEFAULT_MAX_FEEDRATE          { 150, 150, 40, 17 }
 
 /**
  * Default Max Acceleration (change/s) change = mm/s
@@ -1168,7 +1168,7 @@
 #endif
 
 // Homing speeds (mm/m)
-#define HOMING_FEEDRATE_XY (3000)
+#define HOMING_FEEDRATE_XY (2400)
 #define HOMING_FEEDRATE_Z  (814) // anti-resonance
 
 // @section calibrate
