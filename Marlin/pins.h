@@ -834,6 +834,7 @@
     _D_PINS _X2_PINS _Y2_PINS _Z2_PINS \
   }
 
+
 #define HAS_DIGIPOTSS (PIN_EXISTS(DIGIPOTSS))
 
 /**
