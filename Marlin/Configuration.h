@@ -620,7 +620,7 @@
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 150, 150, 40, 17 }
+#define DEFAULT_MAX_FEEDRATE          { 150, 150, 34, 50 }
 
 /**
  * Default Max Acceleration (change/s) change = mm/s
@@ -1483,7 +1483,7 @@
 // This option overrides the default number of encoder pulses needed to
 // produce one step. Should be increased for high-resolution encoders.
 //
-#define ENCODER_PULSES_PER_STEP 2 
+#define ENCODER_PULSES_PER_STEP 4 
 
 //
 // Use this option to override the number of step signals required to
