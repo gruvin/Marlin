@@ -132,7 +132,7 @@
 // The following define selects which electronics board you have.
 // Please choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_RAMPS_14_EFB // MKS gen v2 v1.4 (RAMPS 1.4 compatoble)
+  #define MOTHERBOARD BOARD_MKS_SBASE
 #endif
 
 // Optional custom name for your RepStrap or other custom machine
@@ -711,7 +711,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.5, 80.5, 800, 233 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.5, 80.5, 800, 99 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -726,7 +726,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 3600, 3600, 500, 8000 }
+#define DEFAULT_MAX_ACCELERATION      { 3600, 3600, 500, 10000 }
 
 /**
  * Default Acceleration (change/s) change = mm/s
