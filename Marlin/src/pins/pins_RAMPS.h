@@ -137,7 +137,7 @@
 // Temperature Sensors
 //
 //#define TEMP_0_PIN         13   // Analog Input
-#define TEMP_0_PIN         3    // MKS GEN AUX-1 pin 5
+#define TEMP_0_PIN         3    // E3D PT100 -- MKS GEN AUX-1 pin 5
 #define TEMP_1_PIN         15   // Analog Input
 #define TEMP_BED_PIN       14   // Analog Input
 
