@@ -1365,8 +1365,8 @@
   // Retract and prime filament on tool-change
   #define TOOLCHANGE_FILAMENT_SWAP
   #if ENABLED(TOOLCHANGE_FILAMENT_SWAP)
-    #define TOOLCHANGE_FIL_SWAP_LENGTH          80  // (mm)
-    #define TOOLCHANGE_FIL_EXTRA_PRIME           2  // (mm)
+    #define TOOLCHANGE_FIL_SWAP_LENGTH         115  // (mm)
+    #define TOOLCHANGE_FIL_EXTRA_PRIME         -20  // (mm) BJR: Because Prucer Slicer always starts with an E17.6. FKW.
     #define TOOLCHANGE_FIL_SWAP_RETRACT_SPEED 4800  // (mm/m)
     #define TOOLCHANGE_FIL_SWAP_PRIME_SPEED   3600  // (mm/m)
   #endif
