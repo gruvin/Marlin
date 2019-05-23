@@ -133,6 +133,7 @@
 // Please choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
   #define MOTHERBOARD BOARD_MKS_GEN_13
+  #define IS_RAMPS_EFB // to release D7 for CASE_LIGHT
 #endif
 
 // Optional custom name for your RepStrap or other custom machine
@@ -297,6 +298,9 @@
 //#define HOTEND_OFFSET_X {0.0, 20.00} // (mm) relative X-offset for each nozzle
 //#define HOTEND_OFFSET_Y {0.0, 5.00}  // (mm) relative Y-offset for each nozzle
 //#define HOTEND_OFFSET_Z {0.0, 0.00}  // (mm) relative Z-offset for each nozzle
+#define HOTEND_OFFSET_X {0.0, 0.00} // (mm) relative X-offset for each nozzle
+#define HOTEND_OFFSET_Y {0.0, 0.00}  // (mm) relative Y-offset for each nozzle
+#define HOTEND_OFFSET_Z {0.0, 0.00}  // (mm) relative Z-offset for each nozzle
 
 // @section machine
 
