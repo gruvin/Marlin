@@ -1360,13 +1360,14 @@
  */
 #if EXTRUDERS > 1
   // Z raise distance for tool-change, as needed for some extruders
-  #define TOOLCHANGE_ZRAISE 0.3 // (mm) BJR: Another feedrate bug. Lowers Z too fast. Raise seem OK.
+  #define TOOLCHANGE_ZRAISE 0 // (mm) BJR: Another feedrate bug. Lowers Z too fast. Raise seem OK. Letting PrusaSlicer deal with it now anyway.
 
   // Retract and prime filament on tool-change
-  #define TOOLCHANGE_FILAMENT_SWAP
+  //#define TOOLCHANGE_FILAMENT_SWAP  
+  // BJR: Prucer Slicer handles all of this in GCODE. So, T0/1 must not itself move the extruder.
   #if ENABLED(TOOLCHANGE_FILAMENT_SWAP)
-    #define TOOLCHANGE_FIL_SWAP_LENGTH         115  // (mm)
-    #define TOOLCHANGE_FIL_EXTRA_PRIME         -20  // (mm) BJR: Because Prucer Slicer always starts with an E17.6. FKW.
+    #define TOOLCHANGE_FIL_SWAP_LENGTH          92 // (mm)
+    #define TOOLCHANGE_FIL_EXTRA_PRIME           2  // (mm)
     #define TOOLCHANGE_FIL_SWAP_RETRACT_SPEED 4800  // (mm/m)
     #define TOOLCHANGE_FIL_SWAP_PRIME_SPEED   3600  // (mm/m)
   #endif
