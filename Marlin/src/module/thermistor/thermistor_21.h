@@ -58,53 +58,58 @@
   #define HEATER_CHAMBER_RAW_LO_TEMP 0
 #endif
 const short temptable_21[][2] PROGMEM = {
-  { OV(  0),    0 },  // EXTRAPOLATED
-  { OV(218),    1 },  // EXTRAPOLATED
-  { OV(229),   10 },  // EXTRAPOLATED
-  { OV(240),   20 },  // EXTRAPOLATED
-  { OV(251),   30 },  // EXTRAPOLATED
-  { OV(262),   40 },  // MEASURED ºC
-  { OV(273),   50 },  // MEASURED ºC
-  { OV(284),   60 },  // MEASURED ºC
-  { OV(293),   70 },  // MEASURED ºC
-  { OV(303),   80 },  // MEASURED ºC
-  { OV(313),   90 },  // MEASURED ºC
-  { OV(324),  100 },  // MEASURED ºC
-  { OV(332),  110 },  // MEASURED ºC
-  { OV(342),  120 },  // MEASURED ºC
-  { OV(351),  130 },  // MEASURED ºC
-  { OV(361),  140 },  // MEASURED ºC
-  { OV(369),  150 },  // MEASURED ºC
-  { OV(379),  160 },  // MEASURED ºC
-  { OV(385),  170 },  // MEASURED ºC
-  { OV(393),  180 },  // MEASURED ºC
-  { OV(402),  190 },  // MEASURED ºC
-  { OV(412),  200 },  // MEASURED ºC
-  { OV(422),  210 },  // MEASURED ºC
-  { OV(432),  220 },  // MEASURED ºC
-  { OV(440),  230 },  // MEASURED ºC
-  { OV(450),  240 },  // MEASURED ºC
-  { OV(460),  250 },  // MEASURED ºC
-  { OV(469),  260 },  // MEASURED ºC
-  { OV(478),  270 },  // MEASURED ºC
-  { OV(487),  280 },  // MEASURED ºC
-  { OV(496),  290 },  // MEASURED ºC
-  { OV(506),  300 },  // EXTRAPOLATED
-  { OV(515),  310 },  // EXTRAPOLATED
-  { OV(525),  320 },  // EXTRAPOLATED
-  { OV(535),  330 },  // EXTRAPOLATED
-  { OV(545),  340 },  // EXTRAPOLATED
-  { OV(554),  350 },  // EXTRAPOLATED
-  { OV(564),  360 },  // EXTRAPOLATED
-  { OV(574),  370 },  // EXTRAPOLATED
-  { OV(583),  380 },  // EXTRAPOLATED
-  { OV(593),  390 },  // EXTRAPOLATED
-  { OV(603),  400 },  // EXTRAPOLATED
-  { OV(698),  500 },  // EXTRAPOLATED
-  { OV(681),  600 },  // EXTRAPOLATED
-  { OV(776),  700 },  // EXTRAPOLATED
-  { OV(870),  800 },  // EXTRAPOLATED
-  { OV(964),  900 },  // EXTRAPOLATED
-  { OV(1056), 1000 }, // EXTRAPOLATED
-  { OV(1149), 1100 }  // EXTRAPOLATED
+  { OV(  0),    0 },  // NA
+  { OV(227),    1 },  // EXTRAPOLATED
+  { OV(236),   10 },  // EXTRAPOLATED
+  { OV(245),   20 },  // EXTRAPOLATED
+  { OV(253),   30 },  // EXTRAPOLATED
+  { OV(262),   40 },  // MEASURED
+  { OV(270),   50 },  // MEASURED
+  { OV(275),   60 },  // MEASURED
+  { OV(285),   70 },  // MEASURED
+  { OV(294),   80 },  // MEASURED
+  { OV(302),   90 },  // MEASURED
+  { OV(310),  100 },  // MEASURED
+  { OV(318),  110 },  // MEASURED
+  { OV(326),  120 },  // MEASURED
+  { OV(335),  130 },  // MEASURED
+  { OV(342),  140 },  // MEASURED
+  { OV(351),  150 },  // MEASURED
+  { OV(359),  160 },  // MEASURED
+  { OV(367),  170 },  // MEASURED
+  { OV(375),  180 },  // MEASURED
+  { OV(383),  190 },  // MEASURED
+  { OV(391),  200 },  // MEASURED
+  { OV(399),  210 },  // MEASURED
+  { OV(407),  220 },  // MEASURED
+  { OV(415),  230 },  // MEASURED
+  { OV(423),  240 },  // MEASURED
+  { OV(432),  250 },  // MEASURED
+  { OV(440),  260 },  // MEASURED
+  { OV(447),  270 },  // MEASURED
+  { OV(454),  280 },  // MEASURED
+  { OV(462),  290 },  // MEASURED
+  { OV(470),  300 },  // MEASURED
+  { OV(478),  310 },  // MEASURED
+  { OV(485),  320 },  // MEASURED
+  { OV(492),  330 },  // MEASURED
+  { OV(499),  340 },  // MEASURED
+  { OV(507),  350 },  // MEASURED
+  { OV(514),  360 },  // MEASURED
+  { OV(520),  370 },  // MEASURED
+  { OV(522),  380 },  // MEASURED
+  { OV(524),  390 },  // MEASURED
+  { OV(526),  400 },  // MEASURED
+  { OV(528),  410 },  // MEASURED
+  { OV(531),  420 },  // MEASURED
+  { OV(533),  430 },  // MEASURED
+  { OV(535),  440 },  // MEASURED
+  { OV(537),  450 },  // MEASURED
+  { OV(614),  500 },  // ??
+  { OV(681),  600 },  // ??
+  { OV(744),  700 },  // ??
+  { OV(805),  800 },  // ??
+  { OV(862),  900 },  // ??
+  { OV(917), 1000 },  // ??
+  { OV(968), 1100 }   // ??
 };
