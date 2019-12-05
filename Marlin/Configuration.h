@@ -764,7 +764,7 @@
  * When changing speed and direction, if the difference is less than the
  * value set here, it may happen instantaneously.
  */
-//#define CLASSIC_JERK
+#define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
   #define DEFAULT_XJERK 10.0
   #define DEFAULT_YJERK 10.0
@@ -776,7 +776,7 @@
   #endif
 #endif
 
-#define DEFAULT_EJERK    13  // affects Linear Advance
+#define DEFAULT_EJERK    2.5  // affects Linear Advance
 
 /**
  * Junction Deviation Factor
@@ -1246,7 +1246,7 @@
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   #define UBL_MESH_EDIT_MOVES_Z     // Sophisticated users prefer no movement of nozzle. BJR: BS!
-  #define UBL_SAVE_ACTIVE_ON_M500   // Save the currently active mesh in the current slot on M500
+  //#define UBL_SAVE_ACTIVE_ON_M500   // Save the currently active mesh in the current slot on M500
 
   #define UBL_Z_RAISE_WHEN_OFF_MESH 2.0 // When the nozzle is off the mesh, this value is used
                                         // as the Z-Height correction value.
@@ -1682,7 +1682,7 @@
 //  If CLOCKWISE normally moves DOWN this makes it go UP.
 //  If CLOCKWISE normally moves UP this makes it go DOWN.
 //
-#define REVERSE_MENU_DIRECTION
+//#define REVERSE_MENU_DIRECTION
 
 //
 // This option reverses the encoder direction for Select Screen.
