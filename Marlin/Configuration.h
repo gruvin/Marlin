@@ -778,7 +778,7 @@
   #endif
 #endif
 
-#define DEFAULT_EJERK    2.5  // affects Linear Advance
+#define DEFAULT_EJERK    20  // affects Linear Advance significantly. Lower values slow accell a LOT.
 
 /**
  * Junction Deviation Factor
