@@ -569,9 +569,9 @@
 // @section homing
 
 // Homing hits each endstop, retracts by these distances, then does a slower bump.
-#define X_HOME_BUMP_MM 5
-#define Y_HOME_BUMP_MM 5
-#define Z_HOME_BUMP_MM 2
+#define X_HOME_BUMP_MM 3
+#define Y_HOME_BUMP_MM 3
+#define Z_HOME_BUMP_MM 3
 #define HOMING_BUMP_DIVISOR { 2, 2, 2 }  // Re-Bump Speed Divisor (Divides the Homing Feedrate)
 //#define QUICK_HOME                     // If homing includes X and Y, do a diagonal move initially
 #define HOMING_BACKOFF_MM { 0, 0, 2 }  // (mm) Move away from the endstops after homing
@@ -1916,7 +1916,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z)
-    #define Z_CURRENT       500
+    #define Z_CURRENT       650
     #define Z_CURRENT_HOME  Z_CURRENT
     #define Z_MICROSTEPS     16
     #define Z_RSENSE          0.11
@@ -1924,7 +1924,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z2)
-    #define Z2_CURRENT      500
+    #define Z2_CURRENT      650
     #define Z2_CURRENT_HOME Z2_CURRENT
     #define Z2_MICROSTEPS    16
     #define Z2_RSENSE         0.11
@@ -1932,7 +1932,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z3)
-    #define Z3_CURRENT      500
+    #define Z3_CURRENT      650
     #define Z3_CURRENT_HOME Z3_CURRENT
     #define Z3_MICROSTEPS    16
     #define Z3_RSENSE         0.11
