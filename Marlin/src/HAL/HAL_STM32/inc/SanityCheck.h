@@ -28,9 +28,10 @@
 //  #error "SPINDLE_LASER_PWM_PIN must use SERVO0, SERVO1 or SERVO3 connector"
 //#endif
 
-#if ENABLED(EMERGENCY_PARSER)
-  #error "EMERGENCY_PARSER is not yet implemented for STM32. Disable EMERGENCY_PARSER to continue."
-#endif
+// BJR: I can see no reason this would not work. shrug
+//#if ENABLED(EMERGENCY_PARSER)
+//  #error "EMERGENCY_PARSER is not yet implemented for STM32. Disable EMERGENCY_PARSER to continue."
+//#endif
 
 #if ENABLED(FAST_PWM_FAN)
   #error "FAST_PWM_FAN is not yet implemented for this platform."
