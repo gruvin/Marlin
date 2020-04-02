@@ -450,7 +450,7 @@
 #define HEATER_3_MAXTEMP 275
 #define HEATER_4_MAXTEMP 275
 #define HEATER_5_MAXTEMP 275
-#define BED_MAXTEMP      150
+#define BED_MAXTEMP      170 // LCD menu and GCODE(?) limited to this -10C
 
 //===========================================================================
 //============================= PID Settings ================================
