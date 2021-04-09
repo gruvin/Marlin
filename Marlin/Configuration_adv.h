@@ -1641,7 +1641,7 @@
  *
  * Override the default value based on the driver type set in Configuration.h.
  */
-#define MINIMUM_STEPPER_PULSE 1
+//#define MINIMUM_STEPPER_PULSE 1
 
 /**
  * Maximum stepping rate (in Hz) the stepper driver allows
@@ -1655,7 +1655,7 @@
  *
  * Override the default value based on the driver type set in Configuration.h.
  */
-#define MAXIMUM_STEPPER_RATE 5000000
+//#define MAXIMUM_STEPPER_RATE 5000000
 
 // @section temperature
 
@@ -2036,7 +2036,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z)
-    #define Z_CURRENT       650
+    #define Z_CURRENT       750
     #define Z_CURRENT_HOME  Z_CURRENT
     #define Z_MICROSTEPS     16
     #define Z_RSENSE          0.11
@@ -2195,7 +2195,7 @@
    * Use Trinamic's ultra quiet stepping mode.
    * When disabled, Marlin will use spreadCycle stepping mode.
    */
-  //#define STEALTHCHOP_XY // **REQUIRED** for TMC2209 sensorless homing (not for TMC2130))
+  #define STEALTHCHOP_XY // **REQUIRED** for TMC2209 sensorless homing (not for TMC2130))
   //#define STEALTHCHOP_Z
   //#define STEALTHCHOP_E
 
@@ -2246,10 +2246,10 @@
   #define X2_HYBRID_THRESHOLD    100
   #define Y_HYBRID_THRESHOLD     100
   #define Y2_HYBRID_THRESHOLD    100
-  #define Z_HYBRID_THRESHOLD      12
-  #define Z2_HYBRID_THRESHOLD     12
-  #define Z3_HYBRID_THRESHOLD     12
-  #define Z4_HYBRID_THRESHOLD     12
+  #define Z_HYBRID_THRESHOLD      0
+  #define Z2_HYBRID_THRESHOLD     0
+  #define Z3_HYBRID_THRESHOLD     0
+  #define Z4_HYBRID_THRESHOLD     0
   #define E0_HYBRID_THRESHOLD      0 // stay in spreadCycle
   #define E1_HYBRID_THRESHOLD      0
   #define E2_HYBRID_THRESHOLD      0
