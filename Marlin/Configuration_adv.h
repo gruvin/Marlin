@@ -397,16 +397,16 @@
  */
 #define USE_CONTROLLER_FAN
 #if ENABLED(USE_CONTROLLER_FAN)
-  #define CONTROLLER_FAN_PIN PA8 // Neopixel port // -1        // Set a custom pin for the controller fan
-  //#define CONTROLLER_FAN_USE_Z_ONLY    // With this option only the Z axis is considered
-  //#define CONTROLLER_FAN_IGNORE_Z        // Ignore Z stepper. Useful when stepper timeout is disabled.
-  #define CONTROLLERFAN_SPEED_MIN      0 // (0-255) Minimum speed. (If set below this value the fan is turned off.)
-  #define CONTROLLERFAN_SPEED_ACTIVE 255 // (0-255) Active speed, used when any motor is enabled
-  #define CONTROLLERFAN_SPEED_IDLE     0 // (0-255) Idle speed, used when motors are disabled
-  #define CONTROLLERFAN_IDLE_TIME     30 // (seconds) Extra time to keep the fan running after disabling motors
-  //#define CONTROLLER_FAN_EDITABLE      // Enable M710 configurable settings
+  #define CONTROLLER_FAN_PIN NEOPIXEL_PIN // SKR mini E3 V2.0 Neopixel port
+  //#define CONTROLLER_FAN_USE_Z_ONLY     // With this option only the Z axis is considered
+  //#define CONTROLLER_FAN_IGNORE_Z       // Ignore Z stepper. Useful when stepper timeout is disabled.
+  #define CONTROLLERFAN_SPEED_MIN      0  // (0-255) Minimum speed. (If set below this value the fan is turned off.)
+  #define CONTROLLERFAN_SPEED_ACTIVE 255  // (0-255) Active speed, used when any motor is enabled
+  #define CONTROLLERFAN_SPEED_IDLE     0  // (0-255) Idle speed, used when motors are disabled
+  #define CONTROLLERFAN_IDLE_TIME     30  // (seconds) Extra time to keep the fan running after disabling motors
+  #define CONTROLLER_FAN_EDITABLE         // Enable M710 configurable settings
   #if ENABLED(CONTROLLER_FAN_EDITABLE)
-    #define CONTROLLER_FAN_MENU          // Enable the Controller Fan submenu
+   // #define CONTROLLER_FAN_MENU           // Enable the Controller Fan submenu
   #endif
 #endif
 
@@ -3747,12 +3747,19 @@
 //
 // M42 - Set pin states
 //
-//#define DIRECT_PIN_CONTROL
-
+#define DIRECT_PIN_CONTROL
+// BJR: BTT SKR mini E3 V2.0 [STM32F103RET6]
+// PA0-PA15 => 0x00-0x0F
+// PB0-PB15 => 0x10-0x1F
+// PC0-PC12 => 0x20-0x2C
+// PD2      => 0x32
+// ex. PA8 => 0x08 or 8 dec
+//     PC12 => 0x1C or 44 dec
 //
+
 // M43 - display pin status, toggle pins, watch pins, watch endstops & toggle LED, test servo probe
 //
-//#define PINS_DEBUGGING
+#define PINS_DEBUGGING
 
 // Enable Marlin dev mode which adds some special commands
 //#define MARLIN_DEV_MODE

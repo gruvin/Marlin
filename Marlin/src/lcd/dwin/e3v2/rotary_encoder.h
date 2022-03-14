@@ -39,8 +39,12 @@
 #define ENCODER_PHASE_2  3
 #define ENCODER_PHASE_3  1
 
-#define ENCODER_PULSES_PER_STEP  4
-
+#ifdef ENCODER_PULSES_PER_STEP 
+  #undef ENCODER_PULSES_PER_STEP
+  #define ENCODER_PULSES_PER_STEP  4
+#else
+  #define ENCODER_PULSES_PER_STEP  4
+#endif
 #define BUTTON_PRESSED(BN) !READ(BTN_## BN)
 
 typedef struct {
