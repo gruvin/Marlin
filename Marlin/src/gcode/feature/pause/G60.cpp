@@ -1,6 +1,6 @@
 /**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -16,7 +16,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 
@@ -24,7 +24,6 @@
 
 #if SAVED_POSITIONS
 
-#include "../../../core/language.h"
 #include "../../gcode.h"
 #include "../../../module/motion.h"
 
@@ -40,7 +39,7 @@ void GcodeSuite::G60() {
   const uint8_t slot = parser.byteval('S');
 
   if (slot >= SAVED_POSITIONS) {
-    SERIAL_ERROR_MSG(MSG_INVALID_POS_SLOT STRINGIFY(SAVED_POSITIONS));
+    SERIAL_ERROR_MSG(STR_INVALID_POS_SLOT STRINGIFY(SAVED_POSITIONS));
     return;
   }
 
@@ -48,11 +47,13 @@ void GcodeSuite::G60() {
   SBI(saved_slots[slot >> 3], slot & 0x07);
 
   #if ENABLED(SAVED_POSITIONS_DEBUG)
+    DEBUG_ECHOPGM(STR_SAVED_POS " S", slot);
     const xyze_pos_t &pos = stored_position[slot];
-    DEBUG_ECHOPAIR_F(MSG_SAVED_POS " S", slot);
-    DEBUG_ECHOPAIR_F(" : X", pos.x);
-    DEBUG_ECHOPAIR_F_P(SP_Y_STR, pos.y);
-    DEBUG_ECHOLNPAIR_F_P(SP_Z_STR, pos.z);
+    DEBUG_ECHOLNPAIR_F_P(
+      LIST_N(DOUBLE(LOGICAL_AXES), SP_E_STR, pos.e,
+      PSTR(" : X"), pos.x, SP_Y_STR, pos.y, SP_Z_STR, pos.z,
+      SP_I_STR, pos.i, SP_J_STR, pos.j, SP_K_STR, pos.k)
+    );
   #endif
 }
 

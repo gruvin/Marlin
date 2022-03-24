@@ -1,6 +1,6 @@
-/*
+/**
  * Marlin 3D Printer Firmware
- * Copyright (c) 2019 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
+ * Copyright (c) 2020 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
  * Based on Sprinter and grbl.
  * Copyright (c) 2011 Camiel Gubbels / Erik van der Zalm
@@ -16,48 +16,17 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  */
 #pragma once
 
-// PT100 with E3D INA826 amp on 3.3V SKR 1.3 (Smoothieboard)
-/// *** SOME TEMPS EXTRAPOLATED *** See table below.
+#define REVERSE_TEMP_SENSOR_RANGE_21 1
+
+// GRUVIN: PT100 with E3D INA826 amp on 3.3V SKR 1.3 (Smoothieboard)
 // The PT100 in the Ultimaker v2.0 electronics has a high sample value for a high temperature.
 // This does not match the normal thermistor behavior so we need to set the following defines
-#if THERMISTOR_HEATER_0 == 21
-  #define HEATER_0_RAW_HI_TEMP 16383
-  #define HEATER_0_RAW_LO_TEMP 0
-#endif
-#if THERMISTOR_HEATER_1 == 21
-  #define HEATER_1_RAW_HI_TEMP 16383
-  #define HEATER_1_RAW_LO_TEMP 0
-#endif
-#if THERMISTOR_HEATER_2 == 21
-  #define HEATER_2_RAW_HI_TEMP 16383
-  #define HEATER_2_RAW_LO_TEMP 0
-#endif
-#if THERMISTOR_HEATER_3 == 21
-  #define HEATER_3_RAW_HI_TEMP 16383
-  #define HEATER_3_RAW_LO_TEMP 0
-#endif
-#if THERMISTOR_HEATER_4 == 21
-  #define HEATER_4_RAW_HI_TEMP 16383
-  #define HEATER_4_RAW_LO_TEMP 0
-#endif
-#if THERMISTOR_HEATER_5 == 21
-  #define HEATER_5_RAW_HI_TEMP 16383
-  #define HEATER_5_RAW_LO_TEMP 0
-#endif
-#if THERMISTORBED == 21
-  #define HEATER_BED_RAW_HI_TEMP 16383
-  #define HEATER_BED_RAW_LO_TEMP 0
-#endif
-#if THERMISTORCHAMBER == 21
-  #define HEATER_CHAMBER_RAW_HI_TEMP 16383
-  #define HEATER_CHAMBER_RAW_LO_TEMP 0
-#endif
-const short temptable_21[][2] PROGMEM = {
+constexpr temp_entry_t temptable_21[] PROGMEM = {
   { OV(  0),    0 },  // NA
   { OV(227),    1 },  // EXTRAPOLATED
   { OV(236),   10 },  // EXTRAPOLATED
@@ -105,11 +74,5 @@ const short temptable_21[][2] PROGMEM = {
   { OV(533),  430 },  // MEASURED
   { OV(535),  440 },  // MEASURED
   { OV(537),  450 },  // MEASURED
-  { OV(614),  500 },  // ??
-  { OV(681),  600 },  // ??
-  { OV(744),  700 },  // ??
-  { OV(805),  800 },  // ??
-  { OV(862),  900 },  // ??
-  { OV(917), 1000 },  // ??
-  { OV(968), 1100 }   // ??
+  { OV(614),  500 }   // ??
 };
