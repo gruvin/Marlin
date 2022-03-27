@@ -602,8 +602,8 @@
   #else
   // E3D v6 PT-100 with silicone sock
   #define  DEFAULT_Kp 20
-  #define  DEFAULT_Ki 1.0
-  #define  DEFAULT_Kd 30
+  #define  DEFAULT_Ki 1.1
+  #define  DEFAULT_Kd 15
   #endif
 #endif // PIDTEMP
 
