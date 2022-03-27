@@ -920,14 +920,14 @@
  * following movement settings. If fewer factors are given than the
  * total number of extruders, the last value applies to the rest.
  */
-//#define DISTINCT_E_FACTORS
+#define DISTINCT_E_FACTORS
 
 /**
  * Default Axis Steps Per Unit (steps/mm)
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.5, 160.5, 800, 367. } // E=367 => custom blue and white cold end
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.5, 160.5, 800, 367., 307.} // E=367 => custom blue and white cold end
 
 /**
  * Default Max Feed Rate (mm/s)
