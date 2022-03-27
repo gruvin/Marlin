@@ -602,8 +602,8 @@
   #else
   // E3D v6 PT-100 with silicone sock
   #define  DEFAULT_Kp 20
-  #define  DEFAULT_Ki 1.1
-  #define  DEFAULT_Kd 15
+  #define  DEFAULT_Ki 1.05
+  #define  DEFAULT_Kd 20
   #endif
 #endif // PIDTEMP
 
@@ -927,7 +927,7 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.5, 160.5, 800, 367., 307.} // E=367 => custom blue and white cold end
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.5, 160.5, 800, 298., 307.} // custom white cold ends
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -938,7 +938,7 @@
 
 #define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
-  #define MAX_FEEDRATE_EDIT_VALUES    { 500, 500, 20, 80 } // ...or, set your own edit limits
+  #define MAX_FEEDRATE_EDIT_VALUES    { 400, 400, 20, 80 } // ...or, set your own edit limits
 #endif
 
 /**
