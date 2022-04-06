@@ -602,8 +602,8 @@
   #else
   // E3D v6 PT-100 with silicone sock
   #define  DEFAULT_Kp 20
-  #define  DEFAULT_Ki 1.05
-  #define  DEFAULT_Kd 20
+  #define  DEFAULT_Ki 0.98
+  #define  DEFAULT_Kd 45
   #endif
 #endif // PIDTEMP
 
@@ -951,7 +951,7 @@
 
 #define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
-  #define MAX_ACCEL_EDIT_VALUES       { 6000, 6000, 300, 10000 } // ...or, set your own edit limits
+  #define MAX_ACCEL_EDIT_VALUES       { 4000, 4000, 180, 10000 } // ...or, set your own edit limits
 #endif
 
 /**
@@ -962,8 +962,8 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          2400    // X, Y, Z and E acceleration for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  1500    // E acceleration for retracts
+#define DEFAULT_ACCELERATION          3000    // X, Y, Z and E acceleration for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  1600    // E acceleration for retracts
 #define DEFAULT_TRAVEL_ACCELERATION   3600    // X, Y, Z acceleration for travel (non printing) moves
 
 /**
