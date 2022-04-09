@@ -72,7 +72,7 @@ void DGUSScreenHandler::sendinfoscreen_en_mks(const char *line1, const char *lin
   dgusdisplay.WriteVariable(VP_MSGSTR4, line4, 32, true);
 }
 
-void DGUSScreenHandler::sendinfoscreen_mks(const void *line1, const void *line2, const void *line3, const void *line4, uint16_t language) {
+void DGUSScreenHandler::sendinfoscreen(const void *line1, const void *line2, const void *line3, const void *line4, uint16_t language) {
   if (language == MKS_English)
     DGUSScreenHandler::sendinfoscreen_en_mks((char *)line1, (char *)line2, (char *)line3, (char *)line4);
   else if (language == MKS_SimpleChinese)
@@ -1407,7 +1407,7 @@ bool DGUSScreenHandler::loop() {
 
   if (language_times != 0) {
     LanguagePInit();
-    DGUS_LanguageDisplay(mks_language_index);
+    DGUS_LanguageDisplay(MKS_English); // XXX  mks_language_index);
     language_times--;
   }
 
