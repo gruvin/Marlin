@@ -485,6 +485,10 @@ public:
 
   #endif
 
+  #if ANY(EXTENSIBLE_UI)
+    static inline void return_to_status() {}
+  #endif
+
   #if ENABLED(SDSUPPORT)
     #if BOTH(SCROLL_LONG_FILENAMES, HAS_LCD_MENU)
       #define MARLINUI_SCROLL_NAME 1
