@@ -20,9 +20,6 @@
  *
  */
 
-//#define DEBUG_OUT 1
-#include "../../../../core/debug_out.h"
-
 #include "../../../../inc/MarlinConfigPre.h"
 
 #if ENABLED(DGUS_LCD_UI_MKS)
@@ -40,6 +37,11 @@
 
 #include "../../../../gcode/gcode.h"
 
+#if HAS_DEBUG_DGUS_LCD_UI_MKS
+#define DEBUG_OUT 1
+#include "../../../../core/debug_out.h"
+#endif
+
 #if HAS_STEALTHCHOP
   #include "../../../../module/stepper/trinamic.h"
   #include "../../../../module/stepper/indirection.h"
@@ -56,9 +58,6 @@
 
 bool DGUSAutoTurnOff = false;
 uint8_t mks_language_index; // Initialized by settings.load()
-
-// endianness swap
-uint32_t swap32(const uint32_t value) { return (value & 0x000000FFU) << 24U | (value & 0x0000FF00U) << 8U | (value & 0x00FF0000U) >> 8U | (value & 0xFF000000U) >> 24U; }
 
 #if 0
 void DGUSScreenHandler::sendinfoscreen_ch_mks(const uint16_t *line1, const uint16_t *line2, const uint16_t *line3, const uint16_t *line4) {
@@ -86,7 +85,7 @@ void DGUSScreenHandler::sendinfoscreen(const void *line1, const void *line2, con
 
 void DGUSScreenHandler::DGUSLCD_SendFanToDisplay(DGUS_VP_Variable &var) {
   if (var.memadr) {
-    //DEBUG_ECHOPGM(" DGUS_LCD_SendWordValueToDisplay ", var.VP);
+    //DEBUG_ECHOLNPGM(" DGUS_LCD_SendWordValueToDisplay ", var.VP);
     //DEBUG_ECHOLNPGM(" data ", *(uint16_t *)var.memadr);
     uint16_t tmp = *(uint8_t *) var.memadr; // +1 -> avoid rounding issues for the display.
     // tmp = map(tmp, 0, 255, 0, 100);
@@ -96,7 +95,7 @@ void DGUSScreenHandler::DGUSLCD_SendFanToDisplay(DGUS_VP_Variable &var) {
 
 void DGUSScreenHandler::DGUSLCD_SendBabyStepToDisplay_MKS(DGUS_VP_Variable &var) {
   float value = current_position.z;
-  DEBUG_ECHOLNPAIR_F(" >> ", value, 6);
+  DEBUG_ECHOLNPGM_P(" >> ", value, HEX);
   value *= cpow(10, 2);
   dgusdisplay.WriteVariable(VP_SD_Print_Baby, (uint16_t)value);
 }
@@ -319,7 +318,7 @@ void DGUSScreenHandler::ScreenChangeHook(DGUS_VP_Variable &var, void *val_ptr) {
 }
 
 void DGUSScreenHandler::ScreenBackChange(DGUS_VP_Variable &var, void *val_ptr) {
-  const uint16_t target = swap16(*(uint16_t *)val_ptr);
+  const uint16_t target = BE16_P(val_ptr);
   DEBUG_ECHOLNPGM(" back = 0x%x", target);
   switch (target) {
   }
@@ -335,7 +334,7 @@ void DGUSScreenHandler::ZoffsetConfirm(DGUS_VP_Variable &var, void *val_ptr) {
 
 void DGUSScreenHandler::GetTurnOffCtrl(DGUS_VP_Variable &var, void *val_ptr) {
   DEBUG_ECHOLNPGM("GetTurnOffCtrl\n");
-  const uint16_t value = swap16(*(uint16_t *)val_ptr);
+  const uint16_t value = BE16_P(val_ptr);
   switch (value) {
     case 0 ... 1: DGUSAutoTurnOff = (bool)value; break;
     default: break;
@@ -344,7 +343,7 @@ void DGUSScreenHandler::GetTurnOffCtrl(DGUS_VP_Variable &var, void *val_ptr) {
 
 void DGUSScreenHandler::GetMinExtrudeTemp(DGUS_VP_Variable &var, void *val_ptr) {
   DEBUG_ECHOLNPGM("GetMinExtrudeTemp");
-  const uint16_t value = swap16(*(uint16_t *)val_ptr);
+  const uint16_t value = BE16_P(val_ptr);
   TERN_(PREVENT_COLD_EXTRUSION, thermalManager.extrude_min_temp = value);
   mks_min_extrusion_temp = value;
   settings.save();
@@ -352,7 +351,7 @@ void DGUSScreenHandler::GetMinExtrudeTemp(DGUS_VP_Variable &var, void *val_ptr) 
 
 void DGUSScreenHandler::GetZoffsetDistance(DGUS_VP_Variable &var, void *val_ptr) {
   DEBUG_ECHOLNPGM("GetZoffsetDistance");
-  const uint16_t value = swap16(*(uint16_t *)val_ptr);
+  const uint16_t value = BE16_P(val_ptr);
   float val_distance = 0;
   switch (value) {
     case 0: val_distance = 0.01; break;
@@ -366,11 +365,11 @@ void DGUSScreenHandler::GetZoffsetDistance(DGUS_VP_Variable &var, void *val_ptr)
 
 void DGUSScreenHandler::GetManualMovestep(DGUS_VP_Variable &var, void *val_ptr) {
   DEBUG_ECHOLNPGM("\nGetManualMovestep");
-  *(uint16_t *)var.memadr = swap16(*(uint16_t *)val_ptr);
+  *(uint16_t *)var.memadr = BE16_P(val_ptr);
 }
 
 void DGUSScreenHandler::EEPROM_CTRL(DGUS_VP_Variable &var, void *val_ptr) {
-  const uint16_t eep_flag = swap16(*(uint16_t *)val_ptr);
+  const uint16_t eep_flag = BE16_P(val_ptr);
   switch (eep_flag) {
     case 0:
       settings.save();
@@ -388,7 +387,7 @@ void DGUSScreenHandler::EEPROM_CTRL(DGUS_VP_Variable &var, void *val_ptr) {
 }
 
 void DGUSScreenHandler::Z_offset_select(DGUS_VP_Variable &var, void *val_ptr) {
-  const uint16_t z_value = swap16(*(uint16_t *)val_ptr);
+  const uint16_t z_value = BE16_P(val_ptr);
   switch (z_value) {
     case 0: Z_distance = 0.01; break;
     case 1: Z_distance = 0.1; break;
@@ -400,9 +399,9 @@ void DGUSScreenHandler::Z_offset_select(DGUS_VP_Variable &var, void *val_ptr) {
 void DGUSScreenHandler::GetOffsetValue(DGUS_VP_Variable &var, void *val_ptr) {
 
   #if HAS_BED_PROBE
-    int32_t value = swap32(*(int32_t *)val_ptr);
+    int32_t value = BE32_P(val_ptr);
     float Offset = value / 100.0f;
-    DEBUG_ECHOLNPAIR_F("\nget int6 offset >> ", value, 6);
+    DEBUG_ECHOLNPGM_P("\nget int6 offset >> ", value, HEX);
   #endif
 
   switch (var.VP) {
@@ -433,10 +432,7 @@ void DGUSScreenHandler::LanguageChange_MKS(DGUS_VP_Variable &var, void *val_ptr)
       dgusdisplay.WriteVariable(VP_LANGUAGE_CHANGE2, MKS_Language_Choose);
       settings.save();
       break;
-    default: 
-      dgusdisplay.WriteVariable(VP_LANGUAGE_CHANGE1, MKS_Language_Choose);
-      dgusdisplay.WriteVariable(VP_LANGUAGE_CHANGE2, MKS_Language_Choose);
-      break;
+    default: break;
   }
 }
 
@@ -445,7 +441,7 @@ void DGUSScreenHandler::LanguageChange_MKS(DGUS_VP_Variable &var, void *val_ptr)
 #endif
 
 void DGUSScreenHandler::Level_Ctrl_MKS(DGUS_VP_Variable &var, void *val_ptr) {
-  const uint16_t lev_but = swap16(*(uint16_t *)val_ptr);
+  const uint16_t lev_but = BE16_P(val_ptr);
   #if ENABLED(MESH_BED_LEVELING)
     auto cs = getCurrentScreen();
   #endif
@@ -492,7 +488,7 @@ void DGUSScreenHandler::Level_Ctrl_MKS(DGUS_VP_Variable &var, void *val_ptr) {
 }
 
 void DGUSScreenHandler::MeshLevelDistanceConfig(DGUS_VP_Variable &var, void *val_ptr) {
-  const uint16_t mesh_dist = swap16(*(uint16_t *)val_ptr);
+  const uint16_t mesh_dist = BE16_P(val_ptr);
   switch (mesh_dist) {
     case 0: mesh_adj_distance = 0.01; break;
     case 1: mesh_adj_distance = 0.1; break;
@@ -503,7 +499,7 @@ void DGUSScreenHandler::MeshLevelDistanceConfig(DGUS_VP_Variable &var, void *val
 
 void DGUSScreenHandler::MeshLevel(DGUS_VP_Variable &var, void *val_ptr) {
   #if ENABLED(MESH_BED_LEVELING)
-    const uint16_t mesh_value = swap16(*(uint16_t *)val_ptr);
+    const uint16_t mesh_value = BE16_P(val_ptr);
     // static uint8_t a_first_level = 1;
     char cmd_buf[30];
     float offset = mesh_adj_distance;
@@ -601,7 +597,7 @@ void DGUSScreenHandler::SD_FileBack(DGUS_VP_Variable&, void*) {
 }
 
 void DGUSScreenHandler::LCD_BLK_Adjust(DGUS_VP_Variable &var, void *val_ptr) {
-  const uint16_t lcd_value = swap16(*(uint16_t *)val_ptr);
+  const uint16_t lcd_value = BE16_P(val_ptr);
 
   lcd_default_light = constrain(lcd_value, 10, 100);
 
@@ -610,7 +606,7 @@ void DGUSScreenHandler::LCD_BLK_Adjust(DGUS_VP_Variable &var, void *val_ptr) {
 }
 
 void DGUSScreenHandler::ManualAssistLeveling(DGUS_VP_Variable &var, void *val_ptr) {
-  const int16_t point_value = swap16(*(uint16_t *)val_ptr);
+  const int16_t point_value = BE16_P(val_ptr);
 
   // Insist on leveling first time at this screen
   static bool first_level_flag = false;
@@ -764,7 +760,7 @@ void DGUSScreenHandler::HandleManualMove(DGUS_VP_Variable &var, void *val_ptr) {
   else if (manualMoveStep == 0x02) manualMoveStep =  100;
   else if (manualMoveStep == 0x03) manualMoveStep = 1000;
 
-  DEBUG_ECHOLNPGM("QUEUE LEN:", queue.length);
+  //DEBUG_ECHOLNPGM_P("QUEUE LEN:", queue.length, HEX);
 
   if (!print_job_timer.isPaused() && !queue.ring_buffer.empty())
     return;
@@ -826,7 +822,7 @@ void DGUSScreenHandler::HandleManualMove(DGUS_VP_Variable &var, void *val_ptr) {
       break;
   }
 
-  DEBUG_ECHOPGM("movevalue = ", movevalue);
+  DEBUG_ECHOLNPGM("movevalue = ", movevalue);
   if (movevalue != 0 && movevalue != 5) { // get move distance
     switch (movevalue) {
       case 0x0001: movevalue =  manualMoveStep; break;
@@ -837,20 +833,20 @@ void DGUSScreenHandler::HandleManualMove(DGUS_VP_Variable &var, void *val_ptr) {
 
   if (!movevalue) {
     // homing
-    DEBUG_ECHOPGM(" homing ", AS_CHAR(axiscode));
+    DEBUG_ECHOLNPGM(" homing ", AS_CHAR(axiscode));
     // char buf[6] = "G28 X";
     // buf[4] = axiscode;
 
     char buf[6];
     sprintf(buf, "G28 %c", axiscode);
-    //DEBUG_ECHOPGM(" ", buf);
+    //DEBUG_ECHOLNPGM(" ", buf);
     queue.enqueue_one_now(buf);
     //DEBUG_ECHOLNPGM(" ✓");
     ForceCompleteUpdate();
     return;
   }
   else if (movevalue == 5) {
-    DEBUG_ECHOPGM("send M84");
+    DEBUG_ECHOLNPGM("send M84");
     char buf[6];
     snprintf_P(buf,6,PSTR("M84 %c"), axiscode);
     queue.enqueue_one_now(buf);
@@ -859,13 +855,13 @@ void DGUSScreenHandler::HandleManualMove(DGUS_VP_Variable &var, void *val_ptr) {
   }
   else {
     // movement
-    DEBUG_ECHOPGM(" move ", AS_CHAR(axiscode));
+    DEBUG_ECHOLNPGM(" move ", AS_CHAR(axiscode));
     bool old_relative_mode = relative_mode;
 
     if (!relative_mode) {
-      //DEBUG_ECHOPGM(" G91");
+      //DEBUG_ECHOLNPGM(" G91");
       queue.enqueue_now(F("G91"));
-      //DEBUG_ECHOPGM(" ✓ ");
+      //DEBUG_ECHOLNPGM(" ✓ ");
     }
     char buf[32]; // G1 X9999.99 F12345
     // unsigned int backup_speed = MMS_TO_MMM(feedrate_mm_s);
@@ -879,16 +875,16 @@ void DGUSScreenHandler::HandleManualMove(DGUS_VP_Variable &var, void *val_ptr) {
     //if (backup_speed != speed) {
     //  snprintf_P(buf, 32, PSTR("G0 F%d"), backup_speed);
     //  queue.enqueue_one_now(buf);
-    //  //DEBUG_ECHOPGM(" ", buf);
+    //  //DEBUG_ECHOLNPGM(" ", buf);
     //}
 
     //while (!enqueue_and_echo_command(buf)) idle();
     //DEBUG_ECHOLNPGM(" ✓ ");
     if (!old_relative_mode) {
-      //DEBUG_ECHOPGM("G90");
+      //DEBUG_ECHOLNPGM("G90");
       //queue.enqueue_now(F("G90"));
       queue.enqueue_now(F("G90"));
-      //DEBUG_ECHOPGM(" ✓ ");
+      //DEBUG_ECHOLNPGM(" ✓ ");
     }
   }
 
@@ -917,7 +913,7 @@ void DGUSScreenHandler::HandleChangeLevelPoint_MKS(DGUS_VP_Variable &var, void *
   DEBUG_ECHOLNPGM("HandleChangeLevelPoint_MKS");
 
   const int16_t value_raw = BE16_P(val_ptr);
-  DEBUG_ECHOLNPAIR_F("value_raw:", value_raw);
+  DEBUG_ECHOLNPGM_P("value_raw:", value_raw, HEX);
 
   *(int16_t*)var.memadr = value_raw;
 
@@ -932,7 +928,7 @@ void DGUSScreenHandler::HandleStepPerMMChanged_MKS(DGUS_VP_Variable &var, void *
   const float value = (float)value_raw;
 
   DEBUG_ECHOLNPGM("value_raw:", value_raw);
-  DEBUG_ECHOLNPAIR_F("value:", value);
+  DEBUG_ECHOLNPGM_P("value:", value, HEX);
 
   ExtUI::axis_t axis;
   switch (var.VP) {
@@ -942,7 +938,7 @@ void DGUSScreenHandler::HandleStepPerMMChanged_MKS(DGUS_VP_Variable &var, void *
     case VP_Z_STEP_PER_MM: axis = ExtUI::axis_t::Z; break;
   }
   ExtUI::setAxisSteps_per_mm(value, axis);
-  DEBUG_ECHOLNPAIR_F("value_set:", ExtUI::getAxisSteps_per_mm(axis));
+  DEBUG_ECHOLNPGM_P("value_set:", ExtUI::getAxisSteps_per_mm(axis), HEX);
   settings.save();
   skipVP = var.VP; // don't overwrite value the next update time as the display might autoincrement in parallel
 }
@@ -954,7 +950,7 @@ void DGUSScreenHandler::HandleStepPerMMExtruderChanged_MKS(DGUS_VP_Variable &var
   const float value = (float)value_raw;
 
   DEBUG_ECHOLNPGM("value_raw:", value_raw);
-  DEBUG_ECHOLNPAIR_F("value:", value);
+  DEBUG_ECHOLNPGM_P("value:", value, HEX);
 
   ExtUI::extruder_t extruder;
   switch (var.VP) {
@@ -967,7 +963,7 @@ void DGUSScreenHandler::HandleStepPerMMExtruderChanged_MKS(DGUS_VP_Variable &var
     #endif
   }
   ExtUI::setAxisSteps_per_mm(value, extruder);
-  DEBUG_ECHOLNPAIR_F("value_set:", ExtUI::getAxisSteps_per_mm(extruder));
+  DEBUG_ECHOLNPGM("value_set:", ExtUI::getAxisSteps_per_mm(extruder));
   settings.save();
   skipVP = var.VP; // don't overwrite value the next update time as the display might autoincrement in parallel
 }
@@ -979,7 +975,7 @@ void DGUSScreenHandler::HandleMaxSpeedChange_MKS(DGUS_VP_Variable &var, void *va
   const float value = (float)value_raw;
 
   DEBUG_ECHOLNPGM("value_raw:", value_raw);
-  DEBUG_ECHOLNPAIR_F("value:", value);
+  DEBUG_ECHOLNPGM("value:", value);
 
   ExtUI::axis_t axis;
   switch (var.VP) {
@@ -989,7 +985,7 @@ void DGUSScreenHandler::HandleMaxSpeedChange_MKS(DGUS_VP_Variable &var, void *va
     default: return;
   }
   ExtUI::setAxisMaxFeedrate_mm_s(value, axis);
-  DEBUG_ECHOLNPAIR_F("value_set:", ExtUI::getAxisMaxFeedrate_mm_s(axis));
+  DEBUG_ECHOLNPGM_P("value_set:", ExtUI::getAxisMaxFeedrate_mm_s(axis), HEX);
   settings.save();
   skipVP = var.VP; // don't overwrite value the next update time as the display might autoincrement in parallel
 }
@@ -1001,7 +997,7 @@ void DGUSScreenHandler::HandleExtruderMaxSpeedChange_MKS(DGUS_VP_Variable &var, 
   const float value = (float)value_raw;
 
   DEBUG_ECHOLNPGM("value_raw:", value_raw);
-  DEBUG_ECHOLNPAIR_F("value:", value);
+  DEBUG_ECHOLNPGM_P("value:", value, HEX);
 
   ExtUI::extruder_t extruder;
   switch (var.VP) {
@@ -1014,7 +1010,7 @@ void DGUSScreenHandler::HandleExtruderMaxSpeedChange_MKS(DGUS_VP_Variable &var, 
     case VP_E1_MAX_SPEED: extruder = ExtUI::extruder_t::E1; break;
   }
   ExtUI::setAxisMaxFeedrate_mm_s(value, extruder);
-  DEBUG_ECHOLNPAIR_F("value_set:", ExtUI::getAxisMaxFeedrate_mm_s(extruder));
+  DEBUG_ECHOLNPGM_P("value_set:", ExtUI::getAxisMaxFeedrate_mm_s(extruder));
   settings.save();
   skipVP = var.VP; // don't overwrite value the next update time as the display might autoincrement in parallel
 }
@@ -1026,7 +1022,7 @@ void DGUSScreenHandler::HandleMaxAccChange_MKS(DGUS_VP_Variable &var, void *val_
   const float value = (float)value_raw;
 
   DEBUG_ECHOLNPGM("value_raw:", value_raw);
-  DEBUG_ECHOLNPAIR_F("value:", value);
+  DEBUG_ECHOLNPGM_P("value:", value, HEX);
 
   ExtUI::axis_t axis;
   switch (var.VP) {
@@ -1036,7 +1032,7 @@ void DGUSScreenHandler::HandleMaxAccChange_MKS(DGUS_VP_Variable &var, void *val_
     case VP_Z_ACC_MAX_SPEED: axis = ExtUI::axis_t::Z;  break;
   }
   ExtUI::setAxisMaxAcceleration_mm_s2(value, axis);
-  DEBUG_ECHOLNPAIR_F("value_set:", ExtUI::getAxisMaxAcceleration_mm_s2(axis));
+  DEBUG_ECHOLNPGM_P("value_set:", ExtUI::getAxisMaxAcceleration_mm_s2(axis), HEX);
   settings.save();
   skipVP = var.VP; // don't overwrite value the next update time as the display might autoincrement in parallel
 }
@@ -1057,9 +1053,9 @@ void DGUSScreenHandler::HandleExtruderAccChange_MKS(DGUS_VP_Variable &var, void 
       case VP_E1_ACC_MAX_SPEED: extruder = ExtUI::extruder_t::E1; settings.load(); break;
     #endif
   }
-  DEBUG_ECHOLNPAIR_F("value:", value);
+  DEBUG_ECHOLNPGM_P("value:", value, HEX);
   ExtUI::setAxisMaxAcceleration_mm_s2(value, extruder);
-  DEBUG_ECHOLNPAIR_F("value_set:", ExtUI::getAxisMaxAcceleration_mm_s2(extruder));
+  DEBUG_ECHOLNPGM_P("value_set:", ExtUI::getAxisMaxAcceleration_mm_s2(extruder), HEX);
   settings.save();
   skipVP = var.VP; // don't overwrite value the next update time as the display might autoincrement in parallel
 }
@@ -1123,7 +1119,7 @@ void DGUSScreenHandler::HandleAccChange_MKS(DGUS_VP_Variable &var, void *val_ptr
         #endif
     }
 
-    DEBUG_ECHOLNPAIR_F("V3:", newvalue);
+    DEBUG_ECHOLNPGM_P("V3:", newvalue, HEX);
     *(float *)var.memadr = newvalue;
 
     settings.save();
@@ -1183,7 +1179,7 @@ void DGUSScreenHandler::GetManualFilament(DGUS_VP_Variable &var, void *val_ptr) 
 
   float value = (float)value_len;
 
-  DEBUG_ECHOLNPAIR_F("Get Filament len value:", value);
+  DEBUG_ECHOLNPGM_P("Get Filament len value:", value);
   distanceFilament = value;
 
   skipVP = var.VP; // don't overwrite value the next update time as the display might autoincrement in parallel
@@ -1194,7 +1190,7 @@ void DGUSScreenHandler::GetManualFilamentSpeed(DGUS_VP_Variable &var, void *val_
 
   uint16_t value_len = BE16_P(val_ptr);
 
-  DEBUG_ECHOLNPAIR_F("filamentSpeed_mm_s value:", value_len);
+  DEBUG_ECHOLNPGM_P("filamentSpeed_mm_s value:", value_len, HEX);
 
   filamentSpeed_mm_s = value_len;
 
@@ -1217,7 +1213,6 @@ void DGUSScreenHandler::MKS_FilamentLoadUnload(DGUS_VP_Variable &var, void *val_
 
   const uint16_t val_t = BE16_P(val_ptr);
   switch (val_t) {
-    default: break;
     case 0:
       #if HAS_HOTEND
         if (thermalManager.tooColdToExtrude(0))
@@ -1236,6 +1231,7 @@ void DGUSScreenHandler::MKS_FilamentLoadUnload(DGUS_VP_Variable &var, void *val_
         if (thermalManager.tooColdToExtrude(0)) hotend_too_cold = 1; else swap_tool = 2;
       #endif
       break;
+    default: break;
   }
 
   #if BOTH(HAS_HOTEND, PREVENT_COLD_EXTRUSION)

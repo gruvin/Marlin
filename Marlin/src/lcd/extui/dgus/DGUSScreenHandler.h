@@ -43,8 +43,10 @@
 #endif
 
 // endianness swap
-static inline uint16_t swap16(const uint16_t value) { return (value & 0xFFU) << 8U | (value >> 8U); } // <== re-casting pointers breaks under compiler optimization on STM32 systems
-#define BE16_P(V) ( ((uint8_t*)(V))[0] << 8 | ((uint8_t*)(V))[1] ) // << only fix is to use macro expansion directly, ex. BE16_P(val_ptr)
+// static inline uint16_t swap16(const uint16_t value) { return (value & 0xFFU) << 8U | (value >> 8U); } // <== re-casting pointers breaks under compiler optimization on STM32 systems
+#define BE16_P(V) ( ((uint8_t*)(V))[0] << 8U | ((uint8_t*)(V))[1] ) // << only fix is to use macro expansion directly, ex. BE16_P(val_ptr)
+// static inline uint32_t swap32(const uint32_t value) { return (value & 0x000000FFU) << 24U | (value & 0x0000FF00U) << 8U | (value & 0x00FF0000U) >> 8U | (value & 0xFF000000U) >> 24U; }
+#define BE32_P(V) ( ((uint8_t*)(V))[0] << 24U | ((uint8_t*)(V))[1] << 16U | ((uint8_t*)(V))[2] << 8U | ((uint8_t*)(V))[3] ) 
 
 #if ENABLED(DGUS_LCD_UI_ORIGIN)
   #include "origin/DGUSScreenHandler.h"

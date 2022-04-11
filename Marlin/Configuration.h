@@ -2605,6 +2605,7 @@
 //#define DGUS_LCD_UI_RELOADED
 #if ENABLED(DGUS_LCD_UI_MKS)
   #define USE_MKS_GREEN_UI
+  //#define DEBUG_DGUS_LCD_UI_MKS
 #endif
 
 //

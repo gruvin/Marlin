@@ -150,7 +150,7 @@ void DGUSScreenHandler::DGUSLCD_SendPrintTimeToDisplay(DGUS_VP_Variable &var) {
 // Send an uint8_t between 0 and 100 to a variable scale to 0..255
 void DGUSScreenHandler::DGUSLCD_PercentageToUint8(DGUS_VP_Variable &var, void *val_ptr) {
   if (var.memadr) {
-    uint16_t value = swap16(*(uint16_t*)val_ptr);
+    uint16_t value = BE16_P(val_ptr);
     DEBUG_ECHOLNPGM("FAN value get:", value);
     *(uint8_t*)var.memadr = map(constrain(value, 0, 100), 0, 100, 0, 255);
     DEBUG_ECHOLNPGM("FAN value change:", *(uint8_t*)var.memadr);
@@ -304,7 +304,7 @@ void DGUSScreenHandler::DGUSLCD_SendHeaterStatusToDisplay(DGUS_VP_Variable &var)
 
   void DGUSScreenHandler::DGUSLCD_SD_ScrollFilelist(DGUS_VP_Variable& var, void *val_ptr) {
     auto old_top = top_file;
-    const int16_t scroll = (int16_t)swap16(*(uint16_t*)val_ptr);
+    const int16_t scroll = (int16_t)BE16_P(val_ptr);
     if (scroll) {
       top_file += scroll;
       DEBUG_ECHOPGM("new topfile calculated:", top_file);
@@ -388,7 +388,7 @@ void DGUSScreenHandler::HandleAllHeatersOff(DGUS_VP_Variable &var, void *val_ptr
 }
 
 void DGUSScreenHandler::HandleTemperatureChanged(DGUS_VP_Variable &var, void *val_ptr) {
-  celsius_t newvalue = swap16(*(uint16_t*)val_ptr);
+  celsius_t newvalue = BE16_P(val_ptr);
   celsius_t acceptedvalue;
 
   switch (var.VP) {
@@ -423,7 +423,7 @@ void DGUSScreenHandler::HandleTemperatureChanged(DGUS_VP_Variable &var, void *va
 
 void DGUSScreenHandler::HandleFlowRateChanged(DGUS_VP_Variable &var, void *val_ptr) {
   #if HAS_EXTRUDERS
-    uint16_t newvalue = swap16(*(uint16_t*)val_ptr);
+    uint16_t newvalue = BE16_P(val_ptr);
     uint8_t target_extruder;
     switch (var.VP) {
       default: return;
@@ -443,7 +443,7 @@ void DGUSScreenHandler::HandleFlowRateChanged(DGUS_VP_Variable &var, void *val_p
 void DGUSScreenHandler::HandleManualExtrude(DGUS_VP_Variable &var, void *val_ptr) {
   DEBUG_ECHOLNPGM("HandleManualExtrude");
 
-  int16_t movevalue = swap16(*(uint16_t*)val_ptr);
+  int16_t movevalue = BE16_P(val_ptr);
   float target = movevalue * 0.01f;
   ExtUI::extruder_t target_extruder;
 
@@ -465,7 +465,7 @@ void DGUSScreenHandler::HandleManualExtrude(DGUS_VP_Variable &var, void *val_ptr
 #if ENABLED(DGUS_UI_MOVE_DIS_OPTION)
   void DGUSScreenHandler::HandleManualMoveOption(DGUS_VP_Variable &var, void *val_ptr) {
     DEBUG_ECHOLNPGM("HandleManualMoveOption");
-    *(uint16_t*)var.memadr = swap16(*(uint16_t*)val_ptr);
+    *(uint16_t*)var.memadr = BE16_P(val_ptr);
   }
 #endif
 
@@ -473,7 +473,7 @@ void DGUSScreenHandler::HandleMotorLockUnlock(DGUS_VP_Variable &var, void *val_p
   DEBUG_ECHOLNPGM("HandleMotorLockUnlock");
 
   char buf[4];
-  const int16_t lock = swap16(*(uint16_t*)val_ptr);
+  const int16_t lock = BE16_P(val_ptr);
   strcpy_P(buf, lock ? PSTR("M18") : PSTR("M17"));
 
   //DEBUG_ECHOPGM(" ", buf);
@@ -482,7 +482,7 @@ void DGUSScreenHandler::HandleMotorLockUnlock(DGUS_VP_Variable &var, void *val_p
 
 void DGUSScreenHandler::HandleSettings(DGUS_VP_Variable &var, void *val_ptr) {
   DEBUG_ECHOLNPGM("HandleSettings");
-  uint16_t value = swap16(*(uint16_t*)val_ptr);
+  uint16_t value = BE16_P(val_ptr);
   switch (value) {
     default: break;
     case 1:
@@ -498,7 +498,7 @@ void DGUSScreenHandler::HandleSettings(DGUS_VP_Variable &var, void *val_ptr) {
 void DGUSScreenHandler::HandleStepPerMMChanged(DGUS_VP_Variable &var, void *val_ptr) {
   DEBUG_ECHOLNPGM("HandleStepPerMMChanged");
 
-  uint16_t value_raw = swap16(*(uint16_t*)val_ptr);
+  uint16_t value_raw = BE16_P(val_ptr);
   DEBUG_ECHOLNPGM("value_raw:", value_raw);
   float value = (float)value_raw / 10;
   ExtUI::axis_t axis;
@@ -518,7 +518,7 @@ void DGUSScreenHandler::HandleStepPerMMChanged(DGUS_VP_Variable &var, void *val_
 void DGUSScreenHandler::HandleStepPerMMExtruderChanged(DGUS_VP_Variable &var, void *val_ptr) {
   DEBUG_ECHOLNPGM("HandleStepPerMMExtruderChanged");
 
-  uint16_t value_raw = swap16(*(uint16_t*)val_ptr);
+  uint16_t value_raw = BE16_P(val_ptr);
   DEBUG_ECHOLNPGM("value_raw:", value_raw);
   float value = (float)value_raw / 10;
   ExtUI::extruder_t extruder;
@@ -577,7 +577,7 @@ void DGUSScreenHandler::HandleStepPerMMExtruderChanged(DGUS_VP_Variable &var, vo
   void DGUSScreenHandler::HandleProbeOffsetZChanged(DGUS_VP_Variable &var, void *val_ptr) {
     DEBUG_ECHOLNPGM("HandleProbeOffsetZChanged");
 
-    const float offset = float(int16_t(swap16(*(uint16_t*)val_ptr))) / 100.0f;
+    const float offset = float(int16_t(BE16_P(val_ptr))) / 100.0f;
     ExtUI::setZOffset_mm(offset);
     skipVP = var.VP; // don't overwrite value the next update time as the display might autoincrement in parallel
     return;
@@ -621,7 +621,7 @@ void DGUSScreenHandler::HandleHeaterControl(DGUS_VP_Variable &var, void *val_ptr
   void DGUSScreenHandler::HandlePreheat(DGUS_VP_Variable &var, void *val_ptr) {
     DEBUG_ECHOLNPGM("HandlePreheat");
 
-    const uint16_t preheat_option = swap16(*(uint16_t*)val_ptr);
+    const uint16_t preheat_option = BE16_P(val_ptr);
     switch (preheat_option) {
       default:
       switch (var.VP) {
@@ -642,7 +642,7 @@ void DGUSScreenHandler::HandleHeaterControl(DGUS_VP_Variable &var, void *val_ptr
 #if ENABLED(POWER_LOSS_RECOVERY)
 
   void DGUSScreenHandler::HandlePowerLossRecovery(DGUS_VP_Variable &var, void *val_ptr) {
-    uint16_t value = swap16(*(uint16_t*)val_ptr);
+    uint16_t value = BE16_P(val_ptr);
     if (value) {
       queue.inject(F("M1000"));
       dgusdisplay.WriteVariable(VP_SD_Print_Filename, filelist.filename(), 32, true);

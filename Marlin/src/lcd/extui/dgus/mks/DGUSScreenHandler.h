@@ -307,11 +307,11 @@ private:
   static void (*confirm_action_cb)();
 };
 
-#define MKS_Language_Choose   0x00
-#define MKS_Language_NoChoose 0x01
+#define MKS_Language_Choose   (uint8_t)0x00
+#define MKS_Language_NoChoose (uint8_t)0x01
 
-#define MKS_SimpleChinese     0
-#define MKS_English           1
+#define MKS_SimpleChinese     (uint8_t)0
+#define MKS_English           (uint8_t)1
 extern uint8_t mks_language_index;
 extern bool DGUSAutoTurnOff;
 
