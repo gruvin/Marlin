@@ -141,7 +141,6 @@
 
   #ifndef BEEPER_PIN
     #define BEEPER_PIN                      PA15
-    #undef SPEAKER
   #endif
 #endif
 
