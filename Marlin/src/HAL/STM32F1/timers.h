@@ -81,14 +81,24 @@ typedef uint16_t hal_timer_t;
 #endif
 
 #if MB(BTT_SKR_MINI_E3_V1_0, BTT_SKR_E3_DIP, BTT_SKR_MINI_E3_V1_2, MKS_ROBIN_LITE)
-  // SKR Mini E3 v1.x (not v2 or v3) boards use PA8 as FAN_PIN, so TIMER 1 is used for Fan PWM.
+  // SKR Mini E3 v1.x (not v2/3) boards use PA8 as FAN_PIN, so TIMER 1 is used for Fan PWM.
   #ifdef STM32_HIGH_DENSITY
     #define SERVO0_TIMER_NUM 8  // tone.cpp uses Timer 4
   #else
     #define SERVO0_TIMER_NUM 3  // tone.cpp uses Timer 8
   #endif
+#elif MB(BTT_SKR_MINI_E3_V2_0, BTT_SKR_MINI_E3_V3_0)
+  /**
+   * There's no point cleverly checking if ENABLED(NEOPIXEL) before moving SERVO0_TIMER_NUM
+   * beause there's annoyingly no way to change TONE_TIMER in any Marlin .h files.
+   * So, we'll use Timer 8 as it has the needed CC for servo control. 
+   * However, this requires moving TONE_TIMER to Timer 3 in case ENABLED(SPEAKER) ...
+   * -- SKR mini v2.0 => platform.ini => BTT_STM32F103RE ... build_flags += -DTONE_TIMER=3
+   * -- SKR mini v3.0 => platform.ini => BTT_STM32G0B1 ... build_flags += -DTONE_TIMER=3
+   */
+  #define SERVO0_TIMER_NUM 8
 #else
-  #define SERVO0_TIMER_NUM 1  // SERVO0 or BLTOUCH
+  #define SERVO0_TIMER_NUM 1    // Timer 1 should be fine for other boards.
 #endif
 
 #define STEP_TIMER_IRQ_PRIO 2
