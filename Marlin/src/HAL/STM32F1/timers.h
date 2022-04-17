@@ -95,6 +95,7 @@ typedef uint16_t hal_timer_t;
    * However, this requires moving TONE_TIMER to Timer 3 in case ENABLED(SPEAKER) ...
    * -- SKR mini v2.0 => platform.ini => BTT_STM32F103RE ... build_flags += -DTONE_TIMER=3
    * -- SKR mini v3.0 => platform.ini => BTT_STM32G0B1 ... build_flags += -DTONE_TIMER=3
+   * ALSO: Must use FAN_SOFT_PWM if a fan is connected to PC6/7/8/9 (Timer 8)  
    */
   #define SERVO0_TIMER_NUM 8
 #else
