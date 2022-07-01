@@ -600,10 +600,14 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-  // E3D v6 PT-100 with silicone sock
-  #define  DEFAULT_Kp 20
-  #define  DEFAULT_Ki 0.98
-  #define  DEFAULT_Kd 45
+    // Pahetus Dragonfly BMO PT-100 with silicone sock
+    #define DEFAULT_Kp 15.48
+    #define DEFAULT_Ki 1.41
+    #define DEFAULT_Kd 42.50
+    // E3D v6 PT-100 with silicone sock
+    //#define  DEFAULT_Kp 20
+    //#define  DEFAULT_Ki 0.98
+    //#define  DEFAULT_Kd 45
   #endif
 #endif // PIDTEMP
 
