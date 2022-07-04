@@ -931,7 +931,8 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.5, 160.5, 800, 298., 307.} // custom white cold ends
+// #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.5, 160.5, 800, 298., 307.} // custom white cold ends
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.5, 160.5, 800, 898., 307.} // T0: Bontech LGX  /  T1: custom white cold ends
 
 /**
  * Default Max Feed Rate (mm/s)
