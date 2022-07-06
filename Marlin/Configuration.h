@@ -931,8 +931,8 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-// #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.5, 160.5, 800, 298., 307.} // custom white cold ends
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.5, 160.5, 800, 898., 307.} // T0: Bontech LGX  /  T1: custom white cold ends
+// #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.5, 160.5, 800, 298., 307.} // both custom white cold ends (hob gears differ slightly)
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160.5, 160.5, 800, 890., 307.} // T0: Bondtech LGX  ,  T1: custom white cold end
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -981,9 +981,9 @@
  */
 #define CLASSIC_JERK
 #if ENABLED(CLASSIC_JERK)
-  #define DEFAULT_XJERK 20.0
-  #define DEFAULT_YJERK 20.0
-  #define DEFAULT_ZJERK  0.3
+  #define DEFAULT_XJERK 30.0
+  #define DEFAULT_YJERK 30.0
+  #define DEFAULT_ZJERK  0.6
   //#define DEFAULT_IJERK  0.3
   //#define DEFAULT_JJERK  0.3
   //#define DEFAULT_KJERK  0.3
@@ -996,7 +996,7 @@
   #endif
 #endif
 
-#define DEFAULT_EJERK    20  // affects Linear Advance significantly. Lower values slow accell a LOT.
+#define DEFAULT_EJERK    14  // affects Linear Advance significantly. Lower values slow accell a LOT.
 
 /**
  * Junction Deviation Factor
