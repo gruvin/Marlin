@@ -498,7 +498,7 @@
     //#define DEFAULT_Kd  78.81
     #define DEFAULT_Kp 31.59 // M301 P31.59 I2.32 D80
     #define DEFAULT_Ki 2.32
-    #define DEFAULT_Kd 80   
+    #define DEFAULT_Kd 80
   #endif
 #endif // PIDTEMP
 
@@ -738,14 +738,14 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 418 } // E for E3D Titan (stock = 93)
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 568 } // E for Bondtech LGX (E3D Titan = 418) (stock = 93)
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 300, 300, 20, 60 } // mm/min => { 18000, 18000, 1200, 3000 }
+#define DEFAULT_MAX_FEEDRATE          { 300, 300, 20, 60 } // mm/s (mm/min => { 18000, 18000, 1200, 3000 }
 
 #define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -2475,7 +2475,7 @@
 // Use software PWM to drive the fan, as for the heaters. This uses a very low frequency
 // which is not as annoying as with the hardware PWM. On the other hand, if this frequency
 // is too low, you should also increment SOFT_PWM_SCALE.
-#define FAN_SOFT_PWM // BTT_E3_SKR_mini_v2 used PC6(Timer 3) for HW PWN but need Timer 3 for SPEAKER. 
+#define FAN_SOFT_PWM // BTT_E3_SKR_mini_v2 used PC6(Timer 3) for HW PWN but need Timer 3 for SPEAKER.
 
 // Incrementing this by 1 will double the software PWM frequency,
 // affecting heaters, and the fan if FAN_SOFT_PWM is enabled.
