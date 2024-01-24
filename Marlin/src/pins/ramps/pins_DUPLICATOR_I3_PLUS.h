@@ -23,11 +23,11 @@
 
 /**
  * Wanhao Duplicator i3 Plus pin assignments
+ * ATmega2560
  */
 
-#if NOT_TARGET(__AVR_ATmega2560__)
-  #error "Oops! Select 'Arduino/Genuino Mega or Mega 2560' in 'Tools > Board.'"
-#endif
+#define REQUIRE_MEGA2560
+#include "env_validate.h"
 
 #define BOARD_INFO_NAME "Duplicator i3 Plus"
 

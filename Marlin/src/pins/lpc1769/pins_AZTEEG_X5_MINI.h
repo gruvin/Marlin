@@ -23,11 +23,12 @@
 
 /**
  * Azteeg X5 MINI pin assignments
+ * Schematic (V1): https://green-candy.osdn.jp/external/MarlinFW/board_schematics/Azteeg%20X5%20MINI/x5mini_design_files/X5mini_design_files/V1/X5%20Mini%20PUB%20v1.0.pdf
+ * Schematic (V2): https://green-candy.osdn.jp/external/MarlinFW/board_schematics/Azteeg%20X5%20MINI/x5mini_design_files/X5mini_design_files/V2/X5%20Mini%20V2%20SCH%20Pub.pdf
+ * Schematic (V3): https://green-candy.osdn.jp/external/MarlinFW/board_schematics/Azteeg%20X5%20MINI/x5mini_design_files/X5mini_design_files/V3/X5%20Mini%20V3%20SCH%20Pub.pdf
+ * Origin: http://files.panucatt.com/datasheets/x5mini_design_files.zip
  */
-
-#if NOT_TARGET(MCU_LPC1769)
-  #error "Oops! Make sure you have the LPC1769 environment selected in your IDE."
-#endif
+#include "env_validate.h"
 
 #ifndef BOARD_INFO_NAME
   #define BOARD_INFO_NAME "Azteeg X5 MINI"
@@ -147,19 +148,17 @@
     #define DOGLCD_A0                      P2_06  // (59) J3-8 & AUX-2
 
     #if IS_RRW_KEYPAD
-      #define SHIFT_OUT                    P0_18  // (51)  (MOSI) J3-10 & AUX-3
-      #define SHIFT_CLK                    P0_15  // (52)  (SCK)  J3-9 & AUX-3
-      #define SHIFT_LD                     P1_31  // (49)  not 5V tolerant   J3-1 & AUX-3
+      #define SHIFT_OUT_PIN                P0_18  // (51)  (MOSI) J3-10 & AUX-3
+      #define SHIFT_CLK_PIN                P0_15  // (52)  (SCK)  J3-9 & AUX-3
+      #define SHIFT_LD_PIN                 P1_31  // (49)  not 5V tolerant   J3-1 & AUX-3
     #elif !IS_NEWPANEL
-      //#define SHIFT_OUT                  P2_11  // (35)  J3-3 & AUX-4
-      //#define SHIFT_CLK                  P3_26  // (31)  J3-2 & AUX-4
-      //#define SHIFT_LD                   P3_25  // (33)  J3-4 & AUX-4
-      //#define SHIFT_EN                   P1_22  // (41)  J5-4 & AUX-4
+      //#define SHIFT_OUT_PIN              P2_11  // (35)  J3-3 & AUX-4
+      //#define SHIFT_CLK_PIN              P3_26  // (31)  J3-2 & AUX-4
+      //#define SHIFT_LD_PIN               P3_25  // (33)  J3-4 & AUX-4
+      //#define SHIFT_EN_PIN               P1_22  // (41)  J5-4 & AUX-4
     #endif
 
-    #if ANY(VIKI2, miniVIKI)
-      //#define LCD_SCREEN_ROT_180
-
+    #if EITHER(VIKI2, miniVIKI)
       #define BEEPER_PIN                   P1_30  // (37) may change if cable changes
       #define DOGLCD_CS                    P0_26  // (63) J5-3 & AUX-2
       #define DOGLCD_SCK              SD_SCK_PIN
@@ -167,6 +166,8 @@
 
       #define STAT_LED_BLUE_PIN            P0_26  // (63)  may change if cable changes
       #define STAT_LED_RED_PIN             P1_21  // ( 6)  may change if cable changes
+
+      //#define LCD_SCREEN_ROTATE            180  // 0, 90, 180, 270
     #else
       #if IS_ULTIPANEL
         #define LCD_PINS_D5                P1_17  // (71) ENET_MDIO
@@ -183,11 +184,7 @@
     #endif
 
     #if ENABLED(MINIPANEL)
-      // GLCD features
-      // Uncomment screen orientation
-      //#define LCD_SCREEN_ROT_90
-      //#define LCD_SCREEN_ROT_180
-      //#define LCD_SCREEN_ROT_270
+      //#define LCD_SCREEN_ROTATE            180  // 0, 90, 180, 270
     #endif
 
   #endif
@@ -201,8 +198,6 @@
   #define SDCARD_CONNECTION              ONBOARD
 #endif
 
-#define ONBOARD_SD_CS_PIN                  P0_06  // Chip select for "System" SD card
-
 #if SD_CONNECTION_IS(LCD)
   #define SD_SCK_PIN                       P0_15
   #define SD_MISO_PIN                      P0_17
@@ -213,6 +208,7 @@
   #define SD_SCK_PIN                       P0_07
   #define SD_MISO_PIN                      P0_08
   #define SD_MOSI_PIN                      P0_09
+  #define ONBOARD_SD_CS_PIN                P0_06  // Chip select for "System" SD card
   #define SD_SS_PIN            ONBOARD_SD_CS_PIN
 #elif SD_CONNECTION_IS(CUSTOM_CABLE)
   #error "No custom SD drive cable defined for this board."

@@ -22,7 +22,8 @@
 #pragma once
 
 /**
- * Geeetech A20M pin assignment
+ * Geeetech A20M board pin assignments
+ * ATmega2560
  */
 
 #define LCD_PINS_RS                            5
@@ -30,7 +31,7 @@
 #define LCD_PINS_D4                           21
 #define LCD_PINS_D7                            6
 
-#define SPEAKER  // The speaker can produce tones
+#define SPEAKER                                  // The speaker can produce tones
 
 #if IS_NEWPANEL
   #define BTN_EN1                             16

@@ -22,12 +22,12 @@
 #pragma once
 
 /**
- * Smoothieboard pin assignments
+ * Smoothieware Smoothieboard pin assignments
+ * Schematic: https://green-candy.osdn.jp/external/MarlinFW/board_schematics/Smoothieware%20Smoothieboard%20V1/http.i.imgur.com.oj4zqs3.png
+ * Origin: http://smoothieware.org/_media///external/http.i.imgur.com.oj4zqs3.png
  */
 
-#if NOT_TARGET(MCU_LPC1769)
-  #error "Oops! Make sure you have the LPC1769 environment selected in your IDE."
-#endif
+#include "env_validate.h"
 
 #define BOARD_INFO_NAME   "Smoothieboard"
 #define BOARD_WEBSITE_URL "smoothieware.org/smoothieboard"
@@ -93,7 +93,7 @@
 //
 // LCD / Controller
 //
-#if ANY(VIKI2, miniVIKI)
+#if EITHER(VIKI2, miniVIKI)
 
   #define BEEPER_PIN                       P1_31
   #define DOGLCD_A0                        P2_11

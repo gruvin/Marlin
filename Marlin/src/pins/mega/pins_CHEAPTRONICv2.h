@@ -24,12 +24,12 @@
 /**
  * Cheaptronic v2.0 pin assignments
  * Built and sold by Michal Dyntar - RRO
- *          www.reprapobchod.cz
+ *          www.reprapobchod.cz (DOES NOT EXIST ANYMORE)
+ *          https://web.archive.org/web/20190306201523/http://reprapobchod.cz/
+ * ATmega2560
  */
 
-#if NOT_TARGET(__AVR_ATmega2560__)
-  #error "Oops! Select 'Arduino/Genuino Mega or Mega 2560' in 'Tools > Board.'"
-#endif
+#include "env_validate.h"
 
 #define BOARD_INFO_NAME "Cheaptronic v2.0"
 

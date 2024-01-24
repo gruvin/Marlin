@@ -22,7 +22,7 @@
 
 #include "../../../inc/MarlinConfig.h"
 
-#if HAS_TFT_XPT2046 || HAS_TOUCH_BUTTONS
+#if HAS_TFT_XPT2046 || HAS_RES_TOUCH_BUTTONS
 
 #include "xpt2046.h"
 #include <SPI.h>
@@ -44,9 +44,11 @@ uint16_t delta(uint16_t a, uint16_t b) { return a > b ? a - b : b - a; }
 #endif
 
 void XPT2046::Init() {
-  SET_INPUT(TOUCH_MISO_PIN);
-  SET_OUTPUT(TOUCH_MOSI_PIN);
-  SET_OUTPUT(TOUCH_SCK_PIN);
+  #if DISABLED(TOUCH_BUTTONS_HW_SPI)
+    SET_INPUT(TOUCH_MISO_PIN);
+    SET_OUTPUT(TOUCH_MOSI_PIN);
+    SET_OUTPUT(TOUCH_SCK_PIN);
+  #endif
   OUT_WRITE(TOUCH_CS_PIN, HIGH);
 
   #if PIN_EXISTS(TOUCH_INT)

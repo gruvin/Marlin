@@ -23,10 +23,13 @@
 
 /**
  * MKS GEN L V2 – Arduino Mega2560 with RAMPS v1.4 pin assignments
+ * Schematic: https://green-candy.osdn.jp/external/MarlinFW/board_schematics/RAMPS/MKS%20GEN%20L%20V2.1/MKS%20GEN_L%20V2.1_001%20SCH.pdf
+ * Origin: https://github.com/makerbase-mks/MKS-GEN_L/blob/master/hardware/MKS%20Gen_L%20V2.1_001/MKS%20GEN_L%20V2.1_001%20SCH.pdf
+ * ATmega2560
  */
 
 #if HOTENDS > 2 || E_STEPPERS > 2
-  #error "MKS GEN L V2.1 supports up to 2 hotends / E-steppers. Comment out this line to continue."
+  #error "MKS GEN L V2.1 supports up to 2 hotends / E steppers."
 #endif
 
 #define BOARD_INFO_NAME "MKS GEN L V2.1"
@@ -81,16 +84,5 @@
 #ifndef E1_SERIAL_RX_PIN
   #define E1_SERIAL_RX_PIN                    12
 #endif
-//#define SUICIDE_PIN 21 //断电检测pin配置，根据实际用到的pin进行配置
-////#define SUICIDE_PIN_INVERTING false
-//#define KILL_PIN 19 //打完关机pin配置，根据实际用到的pin进行配置
-//#define KILL_PIN_STATE true
 
 #include "pins_RAMPS.h"
-
-#if ENABLED(DGUS_LCD_UI_MKS)
-  #ifndef SD_DETECT_PIN
-   #define SD_DETECT_PIN 49
- #endif
-#endif
-

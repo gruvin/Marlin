@@ -21,9 +21,7 @@
  */
 #pragma once
 
-#if NOT_TARGET(__STM32F1__)
-  #error "Oops! Select an STM32F1 board in 'Tools > Board.'"
-#endif
+#include "env_validate.h"
 
 /**
  * 21017 Victor Perez Marlin for stm32f1 test
@@ -122,7 +120,7 @@
       #error "LCD_I2C_PANELOLU2 is not supported."
     #elif ENABLED(LCD_I2C_VIKI)
       #error "LCD_I2C_VIKI is not supported."
-    #elif ANY(VIKI2, miniVIKI)
+    #elif EITHER(VIKI2, miniVIKI)
       #error "VIKI2 / miniVIKI is not supported."
     #elif ENABLED(ELB_FULL_GRAPHIC_CONTROLLER)
       #error "ELB_FULL_GRAPHIC_CONTROLLER is not supported."

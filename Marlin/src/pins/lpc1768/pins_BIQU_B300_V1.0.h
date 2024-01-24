@@ -22,16 +22,10 @@
 #pragma once
 
 /**
- * BIQU BQ111-A4
- *
- * Applies to the following boards:
- *
- *  BOARD_BIQU_BQ111_A4 (Hotend, Fan, Bed)
+ * BIQU Thunder B300 V1.0
  */
 
-#if NOT_TARGET(MCU_LPC1768)
-  #error "Oops! Make sure you have the LPC1768 environment selected in your IDE."
-#endif
+#include "env_validate.h"
 
 #ifndef BOARD_INFO_NAME
   #define BOARD_INFO_NAME "BIQU Thunder B300 V1.0"
