@@ -12,8 +12,23 @@
     <a href="https://fosstodon.org/@marlinfirmware"><img alt="Follow MarlinFirmware on Mastodon" src="https://img.shields.io/mastodon/follow/109450200866020466?domain=https%3A%2F%2Ffosstodon.org&logoColor=%2300B&style=social"></a>
 </p>
 
+- - -
+
+2024-01-25 @gruvin
+## ender3v2-btt_skr_mini_E3_v2 — Marlin 2.1.2.1
+
+### Custom Ender 3 V2, with BigtreeTech SKR Mini E3 V2
++ BL-Touch (using `G29 A1 L1` & `G29 J` 3-point bed tilt checking)
++ `M600`/`G27` support
++ Speaker for musical tones
++ DWIN Marlin UI
+
+
+- - -
+
 Additional documentation can be found at the [Marlin Home Page](https://marlinfw.org/).
 Please test this firmware and let us know if it misbehaves in any way. Volunteers are standing by!
+
 
 ## Marlin 2.1
 
