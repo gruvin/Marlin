@@ -669,7 +669,12 @@
     #define DEFAULT_Ki_LIST {   2.62,   2.62 }
     #define DEFAULT_Kd_LIST {  78.81,  78.81 }
   #else
-    // Ender 3 v2g
+    // Ender 3 v2g 65W heater
+    #define DEFAULT_Kp 11.49
+    #define DEFAULT_Ki 0.82
+    #define DEFAULT_Kd 40.45
+
+    // Ender 3 v2g 40W heater
     #define DEFAULT_Kp 40
     #define DEFAULT_Ki 2.4
     #define DEFAULT_Kd 80
