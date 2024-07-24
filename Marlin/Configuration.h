@@ -669,15 +669,21 @@
     #define DEFAULT_Ki_LIST {   2.62,   2.62 }
     #define DEFAULT_Kd_LIST {  78.81,  78.81 }
   #else
-    // Ender 3 v2g 65W heater
-    #define DEFAULT_Kp 11.49
-    #define DEFAULT_Ki 0.82
-    #define DEFAULT_Kd 40.45
+    // Ender 3 v2g 65W heater E3D V6 heat block
+    // M301 P12.16 I0.90 D41.11                                      
+    #define DEFAULT_Kp 12.16
+    #define DEFAULT_Ki 0.90
+    #define DEFAULT_Kd 41.11
 
-    // Ender 3 v2g 40W heater
-    #define DEFAULT_Kp 40
-    #define DEFAULT_Ki 2.4
-    #define DEFAULT_Kd 80
+    // Ender 3 v2g 65W heater Phaetus heat block
+    // #define DEFAULT_Kp 11.49
+    // #define DEFAULT_Ki 0.82
+    // #define DEFAULT_Kd 40.45
+
+    // Ender 3 v2g 40W heater Phaetus heat block
+    // #define DEFAULT_Kp 40
+    // #define DEFAULT_Ki 2.4
+    // #define DEFAULT_Kd 80
   #endif
 #endif
 
